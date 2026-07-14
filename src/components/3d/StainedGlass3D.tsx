@@ -197,43 +197,63 @@ export function StainedGlass3D() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [mounted, isMobile]);
 
-  // 1. Mobile specific rendering: High-performance, clean, static SVG mosaic with CSS parallax shift
+  // 1. Mobile specific rendering: High-performance, highly detailed Gothic Rose window SVG illustration with parallax
   // Render this immediately on initial render/SSR/hydration to prevent Three.js flashes
   if (!mounted || isMobile) {
     return (
       <div 
         ref={containerRef}
-        className="absolute inset-0 w-full h-[120%] overflow-hidden bg-transparent z-0 pointer-events-none select-none"
+        className="absolute inset-0 w-full h-[120%] overflow-hidden bg-transparent z-0 pointer-events-none select-none flex items-center justify-center"
         style={{ 
           transform: "translate3d(0, calc(-1 * var(--scroll-offset, 0px)), 0)",
           transition: "transform 0.15s cubic-bezier(0.1, 0.9, 0.2, 1)"
         }}
       >
-        <svg className="w-full h-full opacity-18 dark:opacity-10" viewBox="0 0 100 100" preserveAspectRatio="none">
-          {/* Static colorful glass polygon panels */}
-          <polygon points="0,0 30,0 20,30 0,20" className="fill-rose-500/25 opacity-20" />
-          <polygon points="30,0 70,0 60,35 20,30" className="fill-amber-500/25 opacity-20" />
-          <polygon points="70,0 100,0 100,25 60,35" className="fill-blue-500/25 opacity-20" />
+        <svg 
+          className="w-[90%] max-w-lg h-[95vh] opacity-25 dark:opacity-15 drop-shadow-[0_0_30px_rgba(225,29,72,0.1)] text-black dark:text-white" 
+          viewBox="0 0 100 150" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* Gothic Cathedral Window Pointer Outer Arch */}
+          <path d="M10,140 L10,65 Q10,10 50,10 Q90,10 90,65 L90,140 Z" fill="none" stroke="currentColor" strokeWidth="1.2" />
+
+          {/* Central Rose Window Medallion */}
+          <circle cx="50" cy="42" r="16" fill="none" stroke="currentColor" strokeWidth="1" />
           
-          <polygon points="0,20 20,30 15,60 0,55" className="fill-purple-500/25 opacity-20" />
-          <polygon points="20,30 60,35 50,70 15,60" className="fill-emerald-500/25 opacity-20" />
-          <polygon points="60,35 100,25 100,60 50,70" className="fill-rose-500/25 opacity-20" />
-          
-          <polygon points="0,55 15,60 10,100 0,100" className="fill-amber-500/25 opacity-20" />
-          <polygon points="15,60 50,70 45,100 10,100" className="fill-blue-500/25 opacity-20" />
-          <polygon points="50,70 100,60 100,100 45,100" className="fill-purple-500/25 opacity-20" />
-          
-          {/* Mosaic leaded framing grid overlay */}
-          <line x1="30" y1="0" x2="20" y2="30" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
-          <line x1="70" y1="0" x2="60" y2="35" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
-          <line x1="20" y1="30" x2="0" y2="20" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
-          <line x1="60" y1="35" x2="20" y2="30" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
-          <line x1="100" y1="25" x2="60" y2="35" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
-          <line x1="15" y1="60" x2="0" y2="55" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
-          <line x1="50" y1="70" x2="15" y2="60" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
-          <line x1="100" y1="60" x2="50" y2="70" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
-          <line x1="15" y1="60" x2="10" y2="100" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
-          <line x1="50" y1="70" x2="45" y2="100" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          {/* Rose Window Petal Wedges */}
+          <polygon points="50,42 50,26 56,29 50,42" fill="#e11d48" className="opacity-70" stroke="currentColor" strokeWidth="0.4" />
+          <polygon points="50,42 66,42 63,48 50,42" fill="#2563eb" className="opacity-70" stroke="currentColor" strokeWidth="0.4" />
+          <polygon points="50,42 50,58 44,55 50,42" fill="#d97706" className="opacity-70" stroke="currentColor" strokeWidth="0.4" />
+          <polygon points="50,42 34,42 37,36 50,42" fill="#059669" className="opacity-70" stroke="currentColor" strokeWidth="0.4" />
+          <polygon points="50,42 61,31 66,36 50,42" fill="#7c3aed" className="opacity-70" stroke="currentColor" strokeWidth="0.4" />
+          <polygon points="50,42 61,53 56,58 50,42" fill="#e11d48" className="opacity-70" stroke="currentColor" strokeWidth="0.4" />
+          <polygon points="50,42 39,53 34,48 50,42" fill="#2563eb" className="opacity-70" stroke="currentColor" strokeWidth="0.4" />
+          <polygon points="50,42 39,31 44,26 50,42" fill="#d97706" className="opacity-70" stroke="currentColor" strokeWidth="0.4" />
+
+          {/* Lancet 1 (Left window pane) */}
+          <path d="M15,135 L15,75 Q15,55 25,55 Q35,55 35,75 L35,135 Z" fill="none" stroke="currentColor" strokeWidth="0.8" />
+          <path d="M15,135 L15,115 L35,115 L35,135 Z" fill="#2563eb" className="opacity-60" stroke="currentColor" strokeWidth="0.4" />
+          <path d="M15,115 L15,95 L35,95 L35,115 Z" fill="#e11d48" className="opacity-60" stroke="currentColor" strokeWidth="0.4" />
+          <path d="M15,95 L15,75 Q15,55 25,55 Q35,55 35,75 L35,95 Z" fill="#7c3aed" className="opacity-60" stroke="currentColor" strokeWidth="0.4" />
+
+          {/* Lancet 2 (Center tall window pane) */}
+          <path d="M40,138 L40,70 Q40,48 50,48 Q60,48 60,70 L60,138 Z" fill="none" stroke="currentColor" strokeWidth="0.8" />
+          <path d="M40,138 L40,118 L60,118 L60,138 Z" fill="#d97706" className="opacity-60" stroke="currentColor" strokeWidth="0.4" />
+          <path d="M40,118 L40,98 L60,98 L60,118 Z" fill="#059669" className="opacity-60" stroke="currentColor" strokeWidth="0.4" />
+          <path d="M40,98 L40,70 Q40,48 50,48 Q60,48 60,70 L60,98 Z" fill="#e11d48" className="opacity-60" stroke="currentColor" strokeWidth="0.4" />
+
+          {/* Lancet 3 (Right window pane) */}
+          <path d="M65,135 L65,75 Q65,55 75,55 Q85,55 85,75 L85,135 Z" fill="none" stroke="currentColor" strokeWidth="0.8" />
+          <path d="M65,135 L65,115 L85,115 L85,135 Z" fill="#2563eb" className="opacity-60" stroke="currentColor" strokeWidth="0.4" />
+          <path d="M65,115 L65,95 L85,95 L85,115 Z" fill="#e11d48" className="opacity-60" stroke="currentColor" strokeWidth="0.4" />
+          <path d="M65,95 L65,75 Q65,55 75,55 Q85,55 85,75 L85,95 Z" fill="#7c3aed" className="opacity-60" stroke="currentColor" strokeWidth="0.4" />
+
+          {/* Traceries & Geometric Fillers */}
+          <circle cx="25" cy="50" r="3" fill="#d97706" className="opacity-70" stroke="currentColor" strokeWidth="0.4" />
+          <circle cx="75" cy="50" r="3" fill="#d97706" className="opacity-70" stroke="currentColor" strokeWidth="0.4" />
+          <path d="M36,55 Q50,45 64,55" stroke="currentColor" strokeWidth="0.8" fill="none" />
+          <polygon points="50,15 47,24 53,24" fill="#059669" className="opacity-70" stroke="currentColor" strokeWidth="0.4" />
         </svg>
       </div>
     );
