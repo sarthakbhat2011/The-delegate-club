@@ -116,17 +116,28 @@ export function HeroMotion() {
         </motion.div>
       </motion.div>
       
-      {/* Infinite Marquee Banner at bottom of hero - Translucent glass strip */}
-      <div className="absolute bottom-10 left-0 w-full overflow-hidden border-y border-black/10 dark:border-white/10 bg-white/20 dark:bg-zinc-950/20 backdrop-blur-md py-3.5 z-20 flex whitespace-nowrap transform -rotate-1">
-        <div className="animate-marquee inline-block font-black uppercase text-sm tracking-widest text-black dark:text-zinc-300">
-          <span className="mx-6 text-rose-500 dark:text-rose-400">• DIPLOMATIC COUNCILS</span>
-          <span className="mx-6 text-amber-500 dark:text-amber-400">• HACKATHONS</span>
-          <span className="mx-6 text-indigo-500 dark:text-indigo-400">• SUFI NIGHT CONCERTS</span>
-          <span className="mx-6 text-emerald-500 dark:text-emerald-400">• DHOL BEATS</span>
-          <span className="mx-6 text-rose-500 dark:text-rose-400">• SHARK TANK</span>
-          <span className="mx-6 text-amber-500 dark:text-amber-400">• DIPLOMATIC COUNCILS</span>
-          <span className="mx-6 text-indigo-500 dark:text-indigo-400">• HACKATHONS</span>
-          <span className="mx-6 text-emerald-500 dark:text-emerald-400">• SUFI NIGHT CONCERTS</span>
+      {/* Infinite Marquee Domain Ribbon (Flowing Domains) */}
+      <div className="absolute bottom-8 left-0 w-full overflow-hidden border-y border-rose-500/30 dark:border-rose-500/10 bg-gradient-to-r from-rose-500/10 via-amber-500/10 to-blue-500/10 backdrop-blur-md py-3.5 z-20 flex whitespace-nowrap transform rotate-1 md:-rotate-1 select-none shadow-[0_4px_30px_rgba(225,29,72,0.05)]">
+        <div className="animate-marquee flex items-center gap-12 font-sans font-black uppercase text-xs tracking-widest text-zinc-800 dark:text-zinc-200">
+          <span className="text-rose-500 text-glow-ruby">✦ MODEL UN</span>
+          <span className="text-amber-500 text-glow-amber">✦ HACKATHON</span>
+          <span className="text-blue-500 text-glow-sapphire">✦ SUFI CONCERT</span>
+          <span className="text-emerald-500 text-glow-emerald">✦ AUCTIONS</span>
+          <span className="text-purple-500 text-glow-amethyst">✦ SHARK TANK</span>
+          
+          {/* Duplicate 1 for seamless infinite marquee loop */}
+          <span className="text-rose-500 text-glow-ruby">✦ MODEL UN</span>
+          <span className="text-amber-500 text-glow-amber">✦ HACKATHON</span>
+          <span className="text-blue-500 text-glow-sapphire">✦ SUFI CONCERT</span>
+          <span className="text-emerald-500 text-glow-emerald">✦ AUCTIONS</span>
+          <span className="text-purple-500 text-glow-amethyst">✦ SHARK TANK</span>
+
+          {/* Duplicate 2 for seamless loop layout support */}
+          <span className="text-rose-500 text-glow-ruby">✦ MODEL UN</span>
+          <span className="text-amber-500 text-glow-amber">✦ HACKATHON</span>
+          <span className="text-blue-500 text-glow-sapphire">✦ SUFI CONCERT</span>
+          <span className="text-emerald-500 text-glow-emerald">✦ AUCTIONS</span>
+          <span className="text-purple-500 text-glow-amethyst">✦ SHARK TANK</span>
         </div>
       </div>
     </section>

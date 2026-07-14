@@ -207,3 +207,17 @@ h4, h5, h6 {
   animation: mobile-glass-glow 9s infinite ease-in-out;
 }
 
+/* Hardware-accelerated continuous domain marquee ribbon */
+@keyframes marquee-flow {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+.animate-marquee {
+  display: inline-flex;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee-flow 18s linear infinite;
+}
+
+

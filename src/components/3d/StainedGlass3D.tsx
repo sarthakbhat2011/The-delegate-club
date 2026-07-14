@@ -170,6 +170,7 @@ function GlassAssembly() {
 export function StainedGlass3D() {
   const [isMobile, setIsMobile] = useState(true); // Default to mobile first during SSR/hydration
   const [mounted, setMounted] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -182,11 +183,32 @@ export function StainedGlass3D() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // 1. Mobile specific rendering: High-performance, clean, static SVG mosaic (completely animation-free for fast loading)
+  useEffect(() => {
+    if (!mounted || !isMobile) return;
+    const el = containerRef.current;
+    if (!el) return;
+
+    const handleScroll = () => {
+      // Scale scroll translation offset (0.12 parallax speed)
+      el.style.setProperty("--scroll-offset", `${window.scrollY * 0.12}px`);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [mounted, isMobile]);
+
+  // 1. Mobile specific rendering: High-performance, clean, static SVG mosaic with CSS parallax shift
   // Render this immediately on initial render/SSR/hydration to prevent Three.js flashes
   if (!mounted || isMobile) {
     return (
-      <div className="absolute inset-0 w-full h-full overflow-hidden bg-transparent z-0 pointer-events-none select-none">
+      <div 
+        ref={containerRef}
+        className="absolute inset-0 w-full h-[120%] overflow-hidden bg-transparent z-0 pointer-events-none select-none"
+        style={{ 
+          transform: "translate3d(0, calc(-1 * var(--scroll-offset, 0px)), 0)",
+          transition: "transform 0.15s cubic-bezier(0.1, 0.9, 0.2, 1)"
+        }}
+      >
         <svg className="w-full h-full opacity-18 dark:opacity-10" viewBox="0 0 100 100" preserveAspectRatio="none">
           {/* Static colorful glass polygon panels */}
           <polygon points="0,0 30,0 20,30 0,20" className="fill-rose-500/25 opacity-20" />
