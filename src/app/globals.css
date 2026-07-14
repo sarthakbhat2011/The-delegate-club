@@ -81,16 +81,16 @@ body {
 /* Light mode text readability support class overrides */
 @layer utilities {
   /* Enforce clear, solid text in light mode when components use gray classes */
-  :root .text-gray-400, :root .text-zinc-400 {
+  html:not(.dark) .text-gray-400, html:not(.dark) .text-zinc-400 {
     color: #4b5563 !important;
   }
-  :root .text-gray-500, :root .text-zinc-500 {
+  html:not(.dark) .text-gray-500, html:not(.dark) .text-zinc-500 {
     color: #374151 !important;
   }
-  :root .text-gray-600, :root .text-zinc-600, :root .text-gray-700, :root .text-zinc-700 {
+  html:not(.dark) .text-gray-600, html:not(.dark) .text-zinc-600, html:not(.dark) .text-gray-700, html:not(.dark) .text-zinc-700 {
     color: #1f2937 !important;
   }
-  :root .text-gray-800, :root .text-zinc-800 {
+  html:not(.dark) .text-gray-800, html:not(.dark) .text-zinc-800 {
     color: #111827 !important;
   }
 }
