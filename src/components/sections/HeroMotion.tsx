@@ -63,7 +63,7 @@ export function HeroMotion() {
           transition={{ type: "spring", damping: 20, stiffness: 100 }}
           className="flex flex-col items-center"
         >
-          <h1 className="font-sans font-black text-5xl sm:text-7xl md:text-[6.5rem] lg:text-[7.5rem] leading-[1.05] tracking-tighter text-black dark:text-white uppercase mb-6 flex flex-col items-center gap-1 select-none">
+          <h1 className="font-sans font-black text-4xl xs:text-5xl sm:text-7xl md:text-[6.5rem] lg:text-[7.5rem] leading-[1.05] tracking-tighter text-black dark:text-white uppercase mb-6 flex flex-col items-center gap-1 select-none">
             {/* "The" with tilted terracotta card behind 'T' */}
             <motion.span 
               whileHover={{ scale: 1.02 }}

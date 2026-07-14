@@ -61,7 +61,7 @@ export default function RootLayout({
           </div>
           
           {/* Gothic Cathedral Stained-Glass Window Frame Overlay */}
-          <div className="pointer-events-none fixed inset-0 z-40 select-none flex flex-col justify-between">
+          <div className="pointer-events-none fixed inset-0 z-40 select-none hidden md:flex flex-col justify-between">
             {/* Left pillar border with ruby glow */}
             <div className="absolute left-0 top-0 bottom-0 w-3.5 md:w-5 bg-zinc-950 dark:bg-black border-r border-rose-500/30 dark:border-rose-500/10 shadow-[0_0_15px_rgba(225,29,72,0.15)]" />
             
