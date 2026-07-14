@@ -22,14 +22,7 @@ const events = [
     color: "bg-[var(--color-brand-emerald)]",
     description: "48 hours of pure coding adrenaline. Build the next big thing, consume excessive caffeine, and pitch to industry titans.",
   },
-  {
-    id: "sufi",
-    title: "Sufi Night",
-    subtitle: "Soulful vibes only.",
-    icon: Music,
-    color: "bg-[var(--color-brand-terracotta)]",
-    description: "When the lights go down, the music takes over. An immersive cultural concert experience to soothe the soul.",
-  },
+
   {
     id: "auction",
     title: "Auctions",

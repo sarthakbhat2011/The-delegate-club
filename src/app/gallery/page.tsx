@@ -77,8 +77,8 @@ const defaultImages: ArchiveImage[] = [
     id: 7,
     category: "Socials",
     src: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?q=80&w=600&auto=format&fit=crop",
-    title: "Sufi Concert and Traditional Dhol Mehfil Night",
-    fileName: "sufi_concert_v1.png",
+    title: "Traditional Fusion Concert and Live Drum Gala",
+    fileName: "fusion_concert_v1.png",
     size: "1.8 MB"
   },
   {

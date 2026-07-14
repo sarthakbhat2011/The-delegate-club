@@ -54,7 +54,7 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
 }
 
 export function EventMarquee() {
-  const events = "SOCIALS ✦ HACKATHONS ✦ SUFI NIGHTS ✦ MUN ✦ SHARK TANK ✦ ";
+  const events = "SOCIALS ✦ HACKATHONS ✦ MUN ✦ SHARK TANK ✦ ";
   
   return (
     <section className="py-24 bg-[var(--color-brand-black)] overflow-hidden relative border-y border-white/5">

@@ -101,7 +101,7 @@ export function HeroMotion() {
           </h1>
           
           <p className="max-w-2xl text-base md:text-xl font-bold text-zinc-700 dark:text-zinc-300 tracking-tight leading-snug mb-10">
-            A royal court of debate run by Gen Z. We host elite assemblies, engineer state-of-the-art tech, and curate soulful Sufi concert nights.
+            A royal court of debate run by Gen Z. We host elite assemblies, engineer state-of-the-art tech, and curate exclusive networking galas.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
@@ -121,21 +121,21 @@ export function HeroMotion() {
         <div className="animate-marquee flex items-center gap-12 font-sans font-black uppercase text-xs tracking-widest text-zinc-800 dark:text-zinc-200">
           <span className="text-rose-500 text-glow-ruby">✦ MODEL UN</span>
           <span className="text-amber-500 text-glow-amber">✦ HACKATHON</span>
-          <span className="text-blue-500 text-glow-sapphire">✦ SUFI CONCERT</span>
+          <span className="text-blue-500 text-glow-sapphire">✦ EXCLUSIVE SOCIALS</span>
           <span className="text-emerald-500 text-glow-emerald">✦ AUCTIONS</span>
           <span className="text-purple-500 text-glow-amethyst">✦ SHARK TANK</span>
           
           {/* Duplicate 1 for seamless infinite marquee loop */}
           <span className="text-rose-500 text-glow-ruby">✦ MODEL UN</span>
           <span className="text-amber-500 text-glow-amber">✦ HACKATHON</span>
-          <span className="text-blue-500 text-glow-sapphire">✦ SUFI CONCERT</span>
+          <span className="text-blue-500 text-glow-sapphire">✦ EXCLUSIVE SOCIALS</span>
           <span className="text-emerald-500 text-glow-emerald">✦ AUCTIONS</span>
           <span className="text-purple-500 text-glow-amethyst">✦ SHARK TANK</span>
 
           {/* Duplicate 2 for seamless loop layout support */}
           <span className="text-rose-500 text-glow-ruby">✦ MODEL UN</span>
           <span className="text-amber-500 text-glow-amber">✦ HACKATHON</span>
-          <span className="text-blue-500 text-glow-sapphire">✦ SUFI CONCERT</span>
+          <span className="text-blue-500 text-glow-sapphire">✦ EXCLUSIVE SOCIALS</span>
           <span className="text-emerald-500 text-glow-emerald">✦ AUCTIONS</span>
           <span className="text-purple-500 text-glow-amethyst">✦ SHARK TANK</span>
         </div>

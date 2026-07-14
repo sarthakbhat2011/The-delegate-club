@@ -7,7 +7,7 @@ import Image from "next/image";
 const council = [
   { name: "Eleanor Sterling", role: "President", desc: "The strategic mind behind our global expansion. Known for ruthless debate prep and an unmatched collection of tailored blazers.", img: "/images/council-1.jpg" },
   { name: "Julian Vance", role: "Head of Hackathons", desc: "Turns caffeine into clean code. Brokered our first million-dollar prize pool while deploying to production.", img: "/images/council-2.jpg" },
-  { name: "Sofia Rossi", role: "Director of Socials", desc: "If there's velvet, a chandelier, and an exclusive guest list, Sofia curated it. Master of the Sufi Night aesthetic.", img: "/images/council-3.jpg" },
+  { name: "Sofia Rossi", role: "Director of Socials", desc: "If there's velvet, a chandelier, and an exclusive guest list, Sofia curated it. Master of the gala reception aesthetic.", img: "/images/council-3.jpg" },
 ];
 
 function BioCard({ person }: { person: typeof council[0] }) {

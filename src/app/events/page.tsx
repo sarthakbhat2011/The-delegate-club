@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-type EventId = "mun" | "hackathon" | "sufi" | "auction" | "sharktank";
+type EventId = "mun" | "hackathon" | "auction" | "sharktank";
 
 interface ClubEvent {
   id: EventId;
@@ -67,16 +67,7 @@ export default function EventsHubPage() {
       desc: "48 hours of pure coding adrenaline. Build the next big thing, consume excessive caffeine, and pitch your secure software solutions to industry titans.",
       schedule: "July 25, 09:00 AM // Byte Arena"
     },
-    {
-      id: "sufi",
-      title: "Sufi Night",
-      subtitle: "Soulful vibes only.",
-      icon: Music,
-      colorClass: "retro-titlebar-terracotta",
-      bgUrl: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?q=80&w=600&auto=format&fit=crop",
-      desc: "When the lights go down, the music takes over. An immersive cultural concert experience to soothe the soul featuring dhol beats and harmoniums.",
-      schedule: "July 26, 07:00 PM // Courtyard"
-    },
+
     {
       id: "auction",
       title: "Auctions",
@@ -99,11 +90,10 @@ export default function EventsHubPage() {
     }
   ];
 
-  // Calendar dates details
   const calendarSchedules: { [key: number]: string } = {
     24: "Model UN Opening Crisis (10:00 AM)",
     25: "Hackathon Sprints & Shark Tank Pitching (09:00 AM)",
-    26: "Charity Auctions & Sufi Night Concert (04:00 PM)"
+    26: "Charity Auctions (04:00 PM)"
   };
 
   const registerEvent = (id: EventId) => {
@@ -116,10 +106,10 @@ export default function EventsHubPage() {
 
   return (
     <main className="relative bg-transparent min-h-screen text-foreground transition-colors duration-500 select-none">
-      {/* Subtle full-page Sufi concert night watermark */}
+      {/* Subtle full-page background watermark */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.04] pointer-events-none mix-blend-multiply z-0"
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1465847899084-d164df4dedc6?q=80&w=1200&auto=format&fit=crop')" }}
+        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=1200&auto=format&fit=crop')" }}
       />
       <Navbar />
 
@@ -136,7 +126,7 @@ export default function EventsHubPage() {
             <span className="calligraphy-heading glossy-heading">The Grand Agenda</span>
           </h1>
           <p className="text-gray-600 text-sm md:text-base font-mono max-w-xl mx-auto">
-            Diplomatic Model UNs, elite hackathons, Sufi music, and venture pits.
+            Diplomatic Model UNs, elite hackathons, charity auctions, and venture pits.
           </p>
         </div>
       </section>

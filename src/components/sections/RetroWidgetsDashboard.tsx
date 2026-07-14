@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 
 // Types for our widgets
-type WindowId = "mun" | "hackathon" | "sufi" | "auction" | "sharktank";
+type WindowId = "mun" | "hackathon" | "auction" | "sharktank";
 
 interface WindowState {
   id: WindowId;
@@ -27,7 +27,6 @@ export function RetroWidgetsDashboard() {
   const [windows, setWindows] = useState<WindowState[]>([
     { id: "mun", title: "Model UN", isOpen: true, isMinimized: false, zIndex: 10, icon: Globe, colorClass: "retro-titlebar-saffron" },
     { id: "hackathon", title: "Hackathons", isOpen: false, isMinimized: false, zIndex: 5, icon: Terminal, colorClass: "retro-titlebar-emerald" },
-    { id: "sufi", title: "Sufi Night", isOpen: false, isMinimized: false, zIndex: 5, icon: Music, colorClass: "retro-titlebar-terracotta" },
     { id: "auction", title: "Auctions", isOpen: false, isMinimized: false, zIndex: 5, icon: Gavel, colorClass: "retro-titlebar-marigold" },
     { id: "sharktank", title: "Shark Tank", isOpen: false, isMinimized: false, zIndex: 5, icon: TrendingUp, colorClass: "retro-titlebar-electric" },
   ]);
@@ -182,40 +181,7 @@ export function RetroWidgetsDashboard() {
     }, 1800);
   };
 
-  // ----------------------------------------------------
-  // INTERACTIVE TOOL 3: Sufi Night Mehfil Player
-  // ----------------------------------------------------
-  const sufiTracks = [
-    { 
-      title: "Kun Faya Kun", 
-      artist: "A.R. Rahman", 
-      translation: "When He decrees a matter, He only says to it, 'Be,' and it is. A majestic ode to divine creation." 
-    },
-    { 
-      title: "Chhaap Tilak", 
-      artist: "Amir Khusro", 
-      translation: "You have taken away my looks, my identity, my entire self with just a single glance of love." 
-    },
-    { 
-      title: "Dama Dam Mast Qalandar", 
-      artist: "Traditional Folk", 
-      translation: "A celebratory chorus praising spiritual ecstasy, unity, and the timeless beat of the dhol." 
-    }
-  ];
 
-  const [activeTrackIndex, setActiveTrackIndex] = useState(0);
-  const [isPlayingSufi, setIsPlayingSufi] = useState(false);
-  const [sufiVolume, setSufiVolume] = useState(75);
-  const [sufiVisualizer, setSufiVisualizer] = useState<number[]>([10, 40, 20, 80, 50, 30, 90, 60, 40, 70, 20, 50]);
-
-  // Visualizer Animation Loop
-  useEffect(() => {
-    if (!isPlayingSufi) return;
-    const interval = setInterval(() => {
-      setSufiVisualizer(Array.from({ length: 12 }, () => Math.floor(Math.random() * 95) + 5));
-    }, 150);
-    return () => clearInterval(interval);
-  }, [isPlayingSufi]);
 
   // ----------------------------------------------------
   // INTERACTIVE TOOL 4: Auctions merit bid
@@ -223,7 +189,7 @@ export function RetroWidgetsDashboard() {
   const auctionItems = [
     { id: "badge", name: "Gold Delegate Merit Badge (Rare)", minBid: 2500, curBid: 2800 },
     { id: "charter", name: "Signed Historic Charter of 2015", minBid: 5000, curBid: 6200 },
-    { id: "sufipass", name: "VIP Sufi Concert Front-Row Pass", minBid: 1500, curBid: 2100 }
+    { id: "vippass", name: "VIP Networking Gala Front-Row Pass", minBid: 1500, curBid: 2100 }
   ];
 
   const [selectedAuctionIdx, setSelectedAuctionIdx] = useState(0);
@@ -333,19 +299,7 @@ export function RetroWidgetsDashboard() {
       textInactive: "text-white/80 group-hover:text-white",
       colorName: "emerald"
     },
-    sufi: {
-      name: "Sufi Night",
-      activeBg: "bg-rose-500/20 dark:bg-rose-500/30",
-      inactiveBg: "bg-white/10 dark:bg-zinc-900/10 hover:bg-rose-500/15",
-      activeBorder: "border-rose-400 dark:border-rose-300",
-      inactiveBorder: "border-black/80 dark:border-white/10 hover:border-rose-500/50",
-      activeGlow: "shadow-[0_0_15px_rgba(225,29,72,0.6)]",
-      iconActive: "text-rose-300 dark:text-rose-200 drop-shadow-[0_0_8px_rgba(225,29,72,0.8)]",
-      iconInactive: "text-zinc-700 dark:text-zinc-300 group-hover:text-rose-500 dark:group-hover:text-rose-400",
-      textActive: "text-rose-400 dark:text-rose-300 font-extrabold tracking-wider",
-      textInactive: "text-white/80 group-hover:text-white",
-      colorName: "ruby"
-    },
+
     auction: {
       name: "Auctions",
       activeBg: "bg-purple-500/20 dark:bg-purple-500/30",
@@ -540,12 +494,7 @@ export function RetroWidgetsDashboard() {
                             style={{ backgroundImage: "url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop')" }}
                           />
                         )}
-                        {win.id === "sufi" && (
-                          <div 
-                            className="absolute inset-0 bg-cover bg-center animate-pan-bg opacity-30" 
-                            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1465847899084-d164df4dedc6?q=80&w=600&auto=format&fit=crop')" }}
-                          />
-                        )}
+
                         {win.id === "auction" && (
                           <div 
                             className="absolute inset-0 bg-cover bg-center animate-pan-bg opacity-30" 
@@ -722,90 +671,7 @@ export function RetroWidgetsDashboard() {
                           </div>
                         )}
 
-                        {/* 3. Sufi Night Mehfil Player Layout */}
-                        {win.id === "sufi" && (
-                          <div className="flex-grow flex flex-col justify-between h-full">
-                            <div className="space-y-4">
-                              <div className="flex justify-between items-start gap-4">
-                                <div className="space-y-1 flex-grow">
-                                  <label className="text-[10px] font-mono font-bold uppercase text-gray-700 block">Sufi Audio Mehfil Player:</label>
-                                  <div className="retro-window-inset bg-black p-2 flex items-center gap-3 rounded-lg border border-black select-none">
-                                    <button 
-                                      onClick={() => setIsPlayingSufi(!isPlayingSufi)}
-                                      className="w-8 h-8 rounded-full bg-[var(--color-brand-terracotta)] flex items-center justify-center text-white shadow-md hover:scale-105 active:scale-95 transition-transform shrink-0"
-                                    >
-                                      {isPlayingSufi ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current translate-x-0.5" />}
-                                    </button>
-                                    <div className="flex-grow min-w-0">
-                                      <span className="block font-calligraphy text-2xl text-white truncate leading-none pt-1">
-                                        {sufiTracks[activeTrackIndex].title}
-                                      </span>
-                                      <span className="block font-serif text-[10px] text-[#C15C3D] font-bold">
-                                        Artist: {sufiTracks[activeTrackIndex].artist}
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
 
-                                <div className="space-y-1 shrink-0 w-24">
-                                  <label className="text-[10px] font-mono font-bold uppercase text-gray-700 block">Volume ({sufiVolume}%):</label>
-                                  <div className="flex items-center gap-1.5 h-9 pt-1.5">
-                                    {sufiVolume === 0 ? <VolumeX className="w-4 h-4 text-black shrink-0" /> : <Volume2 className="w-4 h-4 text-black shrink-0" />}
-                                    <input
-                                      type="range"
-                                      min="0"
-                                      max="100"
-                                      value={sufiVolume}
-                                      onChange={(e) => setSufiVolume(Number(e.target.value))}
-                                      className="w-full accent-[var(--color-brand-terracotta)] cursor-pointer h-1.5 bg-gray-400 rounded-lg appearance-none focus:outline-none"
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-
-                              {/* visualizer animation */}
-                              <div className="retro-window-inset bg-black p-3 rounded-lg flex flex-col gap-2 h-20 items-stretch justify-end">
-                                <div className="flex justify-between items-end gap-1 flex-grow">
-                                  {sufiVisualizer.map((val, idx) => (
-                                    <div 
-                                      key={idx} 
-                                      className="bg-gradient-to-t from-[var(--color-brand-terracotta)] to-[var(--color-brand-marigold)] w-full transition-all duration-150"
-                                      style={{ height: isPlayingSufi ? `${val}%` : "5%" }}
-                                    />
-                                  ))}
-                                </div>
-                                <span className="font-mono text-[8px] text-gray-400 tracking-wider text-center uppercase">
-                                  Mehfil Equalizer Frequency Band
-                                </span>
-                              </div>
-
-                              {/* translation box */}
-                              <div className="p-3 bg-[#fff8f5] rounded-lg border border-gray-300 font-calligraphy text-xl text-zinc-900 leading-normal">
-                                <span className="block font-mono text-[9px] font-bold uppercase text-[#C15C3D] not-italic mb-1">
-                                  Sufi Lyrics English Translation:
-                                </span>
-                                "{sufiTracks[activeTrackIndex].translation}"
-                              </div>
-                            </div>
-
-                            <div className="pt-4 border-t border-[#808080] flex justify-between items-center">
-                              <div className="flex gap-2">
-                                {sufiTracks.map((track, i) => (
-                                  <button
-                                    key={i}
-                                    onClick={() => { setActiveTrackIndex(i); setIsPlayingSufi(true); }}
-                                    className={`px-2.5 py-1 text-[9px] font-mono font-bold transition-all border ${activeTrackIndex === i ? "bg-[var(--color-brand-terracotta)] text-white border-black" : "bg-white border-gray-400 retro-button"}`}
-                                  >
-                                    Track 0{i + 1}
-                                  </button>
-                                ))}
-                              </div>
-                              <span className="font-mono text-[8px] text-gray-500 uppercase font-black">
-                                Status: {isPlayingSufi ? "Playing" : "Paused"}
-                              </span>
-                            </div>
-                          </div>
-                        )}
 
                         {/* 4. Auctions Interactive Layout */}
                         {win.id === "auction" && (

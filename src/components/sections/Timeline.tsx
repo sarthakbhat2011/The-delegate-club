@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 const milestones = [
   { year: "2022", title: "The Royal Decree", desc: "The Delegates Club was officially founded, bringing together the sharpest minds for our inaugural Model UN." },
   { year: "2023", title: "The First Hackathon", desc: "We launched our flagship 48-hour hackathon, partnering with top-tier VCs to fund student innovations." },
-  { year: "2024", title: "Shark Tank & Galas", desc: "Expanded our repertoire to include a massively successful Shark Tank event and our signature Sufi Night." },
+  { year: "2024", title: "Shark Tank & Galas", desc: "Expanded our repertoire to include a massively successful Shark Tank event and exclusive charity auctions." },
   { year: "2026", title: "The Future", desc: "Reimagined as the absolute pinnacle of university societies. Where diplomacy meets drip." }
 ];
 

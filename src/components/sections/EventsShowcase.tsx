@@ -30,7 +30,7 @@ const pillars = [
   },
   {
     title: "Socials",
-    description: "Exclusive networking featuring Sufi Nights, pitch sessions, and black-tie galas.",
+    description: "Exclusive networking featuring private auctions, pitch sessions, and black-tie galas.",
     icon: <Users className="w-8 h-8 text-[var(--color-brand-crimson-light)]" />,
   },
 ];

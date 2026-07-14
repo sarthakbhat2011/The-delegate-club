@@ -58,7 +58,7 @@ export default async function DashboardPage() {
             {/* Mock Events */}
             {[
               { title: "The 48-Hour Hackathon", date: "Oct 12, 2026", status: "Registered" },
-              { title: "Sufi Night Gala", date: "Nov 05, 2026", status: "Waitlisted" }
+              { title: "Networking Gala", date: "Nov 05, 2026", status: "Waitlisted" }
             ].map((evt, i) => (
               <div key={i} className="flex flex-col md:flex-row md:items-center justify-between p-6 bg-[var(--color-brand-charcoal)]/30 rounded-xl border border-[var(--color-brand-gold)]/10 hover:border-[var(--color-brand-gold)]/30 transition-colors">
                 <div>

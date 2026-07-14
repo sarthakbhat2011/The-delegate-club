@@ -21,7 +21,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-const events = ["Model UN", "Hackathons", "Shark Tank", "Charity Auctions", "Sufi Nights"];
+const events = ["Model UN", "Hackathons", "Shark Tank", "Charity Auctions"];
 
 export function ApplicationForm() {
   const [step, setStep] = useState(1);

@@ -6,8 +6,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const socials = [
   {
-    title: "Sufi Night",
-    description: "An evening of mystical music, opulent decor, and profound networking under the stars.",
+    title: "The Networking Gala",
+    description: "An evening of elegant music, opulent decor, and profound networking under the stars.",
     color: "from-[var(--color-brand-charcoal)]",
   },
   {

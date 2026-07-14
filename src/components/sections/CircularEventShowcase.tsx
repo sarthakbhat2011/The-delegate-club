@@ -10,7 +10,7 @@ const events = [
   { id: "hackathon", title: "Elite Hackathons", desc: "48 hours of intense coding, judged by top-tier VCs." },
   { id: "mun", title: "Model UN", desc: "High-level geopolitical debate with global delegates." },
   { id: "sharktank", title: "Shark Tank", desc: "Pitch revolutionary ideas and secure seed funding." },
-  { id: "socials", title: "Premium Socials", desc: "Exclusive Sufi nights, galas, and photo booths." },
+  { id: "socials", title: "Premium Socials", desc: "Exclusive networking galas, socials, and photo booths." },
   { id: "auctions", title: "Charity Auctions", desc: "Exclusive bidding events where luxury meets philanthropy." }
 ];
 
