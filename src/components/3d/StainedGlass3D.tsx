@@ -182,40 +182,37 @@ export function StainedGlass3D() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // 1. Mobile specific rendering: High-performance, clean, hardware-accelerated animated SVG mosaic
+  // 1. Mobile specific rendering: High-performance, clean, static SVG mosaic (completely animation-free for fast loading)
   // Render this immediately on initial render/SSR/hydration to prevent Three.js flashes
   if (!mounted || isMobile) {
     return (
-      <div className="absolute inset-0 w-full h-full overflow-hidden bg-transparent z-0 pointer-events-none select-none transition-opacity duration-700 ease-out">
-        <svg className="w-full h-full opacity-20 dark:opacity-10" viewBox="0 0 100 100" preserveAspectRatio="none">
-          {/* Custom color shifting glass polygon panels */}
-          <polygon points="0,0 30,0 20,30 0,20" className="mobile-glass-pane fill-rose-500/25" style={{ animationDuration: "8s" }} />
-          <polygon points="30,0 70,0 60,35 20,30" className="mobile-glass-pane fill-amber-500/25" style={{ animationDuration: "10s", animationDelay: "1s" }} />
-          <polygon points="70,0 100,0 100,25 60,35" className="mobile-glass-pane fill-blue-500/25" style={{ animationDuration: "12s", animationDelay: "2s" }} />
+      <div className="absolute inset-0 w-full h-full overflow-hidden bg-transparent z-0 pointer-events-none select-none">
+        <svg className="w-full h-full opacity-18 dark:opacity-10" viewBox="0 0 100 100" preserveAspectRatio="none">
+          {/* Static colorful glass polygon panels */}
+          <polygon points="0,0 30,0 20,30 0,20" className="fill-rose-500/25 opacity-20" />
+          <polygon points="30,0 70,0 60,35 20,30" className="fill-amber-500/25 opacity-20" />
+          <polygon points="70,0 100,0 100,25 60,35" className="fill-blue-500/25 opacity-20" />
           
-          <polygon points="0,20 20,30 15,60 0,55" className="mobile-glass-pane fill-purple-500/25" style={{ animationDuration: "9s", animationDelay: "0.5s" }} />
-          <polygon points="20,30 60,35 50,70 15,60" className="mobile-glass-pane fill-emerald-500/25" style={{ animationDuration: "11s", animationDelay: "1.5s" }} />
-          <polygon points="60,35 100,25 100,60 50,70" className="mobile-glass-pane fill-rose-500/25" style={{ animationDuration: "8s", animationDelay: "2.5s" }} />
+          <polygon points="0,20 20,30 15,60 0,55" className="fill-purple-500/25 opacity-20" />
+          <polygon points="20,30 60,35 50,70 15,60" className="fill-emerald-500/25 opacity-20" />
+          <polygon points="60,35 100,25 100,60 50,70" className="fill-rose-500/25 opacity-20" />
           
-          <polygon points="0,55 15,60 10,100 0,100" className="mobile-glass-pane fill-amber-500/25" style={{ animationDuration: "11s", animationDelay: "1s" }} />
-          <polygon points="15,60 50,70 45,100 10,100" className="mobile-glass-pane fill-blue-500/25" style={{ animationDuration: "9s", animationDelay: "3s" }} />
-          <polygon points="50,70 100,60 100,100 45,100" className="mobile-glass-pane fill-purple-500/25" style={{ animationDuration: "10s", animationDelay: "2s" }} />
+          <polygon points="0,55 15,60 10,100 0,100" className="fill-amber-500/25 opacity-20" />
+          <polygon points="15,60 50,70 45,100 10,100" className="fill-blue-500/25 opacity-20" />
+          <polygon points="50,70 100,60 100,100 45,100" className="fill-purple-500/25 opacity-20" />
           
           {/* Mosaic leaded framing grid overlay */}
-          <line x1="30" y1="0" x2="20" y2="30" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
-          <line x1="70" y1="0" x2="60" y2="35" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
-          <line x1="20" y1="30" x2="0" y2="20" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
-          <line x1="60" y1="35" x2="20" y2="30" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
-          <line x1="100" y1="25" x2="60" y2="35" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
-          <line x1="15" y1="60" x2="0" y2="55" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
-          <line x1="50" y1="70" x2="15" y2="60" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
-          <line x1="100" y1="60" x2="50" y2="70" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
-          <line x1="15" y1="60" x2="10" y2="100" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
-          <line x1="50" y1="70" x2="45" y2="100" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
+          <line x1="30" y1="0" x2="20" y2="30" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          <line x1="70" y1="0" x2="60" y2="35" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          <line x1="20" y1="30" x2="0" y2="20" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          <line x1="60" y1="35" x2="20" y2="30" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          <line x1="100" y1="25" x2="60" y2="35" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          <line x1="15" y1="60" x2="0" y2="55" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          <line x1="50" y1="70" x2="15" y2="60" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          <line x1="100" y1="60" x2="50" y2="70" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          <line x1="15" y1="60" x2="10" y2="100" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          <line x1="50" y1="70" x2="45" y2="100" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
         </svg>
-
-        {/* Soft rotating colored light overlays */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-rose-500/5 via-transparent to-blue-500/5 mix-blend-overlay animate-[spin_40s_infinite_linear] pointer-events-none" />
       </div>
     );
   }

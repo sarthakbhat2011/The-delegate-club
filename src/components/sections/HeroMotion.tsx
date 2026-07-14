@@ -1,11 +1,17 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Compass } from "lucide-react";
 
 export function HeroMotion() {
   const containerRef = useRef<HTMLElement>(null);
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
@@ -13,6 +19,8 @@ export function HeroMotion() {
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  const motionStyle = isMobile ? {} : { y, opacity };
 
   return (
     <section 
@@ -36,7 +44,7 @@ export function HeroMotion() {
         <motion.div 
           animate={{ y: [0, -12, 0], rotate: [-12, -8, -12] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[20%] left-[8%] bg-amber-500/10 dark:bg-amber-500/5 backdrop-blur-md text-amber-600 dark:text-amber-400 border border-amber-500/30 rounded-full px-5 py-2 shadow-[0_0_15px_-3px_rgba(217,119,6,0.3)] flex items-center gap-2 rotate-[-12deg]"
+          className="absolute top-[20%] left-[8%] bg-amber-500/10 dark:bg-amber-500/5 backdrop-blur-md text-amber-600 dark:text-amber-400 border border-amber-500/30 rounded-full px-5 py-2 shadow-[0_0_15px_-3px_rgba(217,119,6,0.3)] hidden md:flex items-center gap-2 rotate-[-12deg]"
         >
           <span className="font-black text-base animate-spin-slow inline-block">☸</span>
           <span className="font-extrabold uppercase tracking-widest text-xs">Royal Court</span>
@@ -45,7 +53,7 @@ export function HeroMotion() {
         <motion.div 
           animate={{ y: [0, 12, 0], rotate: [8, 12, 8] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute bottom-[25%] right-[8%] bg-emerald-500/10 dark:bg-emerald-500/5 backdrop-blur-md border border-emerald-500/30 rounded-full px-5 py-2 shadow-[0_0_15px_-3px_rgba(5,150,105,0.3)] flex items-center gap-2 rotate-[8deg] text-emerald-600 dark:text-emerald-400"
+          className="absolute bottom-[25%] right-[8%] bg-emerald-500/10 dark:bg-emerald-500/5 backdrop-blur-md border border-emerald-500/30 rounded-full px-5 py-2 shadow-[0_0_15px_-3px_rgba(5,150,105,0.3)] hidden md:flex items-center gap-2 rotate-[8deg] text-emerald-600 dark:text-emerald-400"
         >
           <span className="font-black text-sm">✦</span>
           <span className="font-extrabold uppercase tracking-widest text-xs">The Royal Darbar</span>
@@ -54,7 +62,7 @@ export function HeroMotion() {
 
       {/* Main Content */}
       <motion.div 
-        style={{ y, opacity }}
+        style={motionStyle}
         className="relative z-10 flex flex-col items-center justify-center w-full px-4 max-w-7xl mx-auto text-center mt-12"
       >
         <motion.div 
