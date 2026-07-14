@@ -2,7 +2,7 @@
 
 import { useRef, useMemo, Suspense, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, MeshTransmissionMaterial, Preload } from "@react-three/drei";
+import { Float, Preload } from "@react-three/drei";
 import * as THREE from "three";
 
 // Individual Stained Glass Panel
@@ -53,19 +53,16 @@ function GlassPanel({ position, color, args, rotation, scrollProgress, index }: 
   return (
     <mesh ref={meshRef} position={position} rotation={rotation} castShadow receiveShadow>
       <boxGeometry args={args} />
-      <MeshTransmissionMaterial
+      <meshPhysicalMaterial
         color={color}
-        transmission={0.95}
-        thickness={0.8}
-        roughness={0.08}
-        ior={1.45}
-        chromaticAberration={0.04}
-        anisotropy={0.3}
-        distortion={0.15}
-        distortionScale={0.2}
-        temporalDistortion={0.05}
-        attenuationDistance={1}
-        attenuationColor={color}
+        transmission={0.9}
+        thickness={1.2}
+        roughness={0.05}
+        clearcoat={1.0}
+        clearcoatRoughness={0.05}
+        ior={1.5}
+        metalness={0.1}
+        transparent
       />
     </mesh>
   );

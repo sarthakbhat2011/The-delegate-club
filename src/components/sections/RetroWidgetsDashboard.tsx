@@ -8,7 +8,6 @@ import {
   VolumeX, Send, Check, RefreshCw, Cpu, 
   Clock, AlertCircle, Laptop
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 // Types for our widgets
 type WindowId = "mun" | "hackathon" | "sufi" | "auction" | "sharktank";
@@ -21,17 +20,16 @@ interface WindowState {
   zIndex: number;
   icon: any;
   colorClass: string;
-  glowClass: string;
 }
 
 export function RetroWidgetsDashboard() {
   // 1. Windows state manager
   const [windows, setWindows] = useState<WindowState[]>([
-    { id: "mun", title: "Model UN", isOpen: true, isMinimized: false, zIndex: 10, icon: Globe, colorClass: "bg-gradient-to-r from-amber-500 to-yellow-500", glowClass: "glow-amber" },
-    { id: "hackathon", title: "Hackathons", isOpen: false, isMinimized: false, zIndex: 5, icon: Terminal, colorClass: "bg-gradient-to-r from-emerald-500 to-green-500", glowClass: "glow-emerald" },
-    { id: "sufi", title: "Sufi Night", isOpen: false, isMinimized: false, zIndex: 5, icon: Music, colorClass: "bg-gradient-to-r from-rose-500 to-red-500", glowClass: "glow-ruby" },
-    { id: "auction", title: "Auctions", isOpen: false, isMinimized: false, zIndex: 5, icon: Gavel, colorClass: "bg-gradient-to-r from-blue-500 to-indigo-500", glowClass: "glow-sapphire" },
-    { id: "sharktank", title: "Shark Tank", isOpen: false, isMinimized: false, zIndex: 5, icon: TrendingUp, colorClass: "bg-gradient-to-r from-purple-500 to-pink-500", glowClass: "glow-amethyst" },
+    { id: "mun", title: "Model UN", isOpen: true, isMinimized: false, zIndex: 10, icon: Globe, colorClass: "retro-titlebar-saffron" },
+    { id: "hackathon", title: "Hackathons", isOpen: false, isMinimized: false, zIndex: 5, icon: Terminal, colorClass: "retro-titlebar-emerald" },
+    { id: "sufi", title: "Sufi Night", isOpen: false, isMinimized: false, zIndex: 5, icon: Music, colorClass: "retro-titlebar-terracotta" },
+    { id: "auction", title: "Auctions", isOpen: false, isMinimized: false, zIndex: 5, icon: Gavel, colorClass: "retro-titlebar-marigold" },
+    { id: "sharktank", title: "Shark Tank", isOpen: false, isMinimized: false, zIndex: 5, icon: TrendingUp, colorClass: "retro-titlebar-electric" },
   ]);
 
   const [activeWindowId, setActiveWindowId] = useState<WindowId>("mun");
@@ -297,29 +295,39 @@ export function RetroWidgetsDashboard() {
   };
 
   return (
-    <section className="py-24 bg-transparent relative z-10 border-t border-black/10 dark:border-white/10 overflow-hidden flex flex-col items-center">
+    <section className="py-24 bg-[var(--color-brand-khaki-sand)] relative z-10 border-t-2 border-black overflow-hidden flex flex-col items-center">
+      {/* Background patterns */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.04] pointer-events-none mix-blend-multiply"
+        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1605649487212-47bdab064df7?q=80&w=1920&auto=format&fit=crop')" }}
+      />
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiMwMDAwMDAiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-20" />
+
       <div className="max-w-7xl w-full px-4 md:px-6 relative z-10">
         
         {/* Section Heading */}
         <div className="mb-12">
-          <span className="text-rose-500 dark:text-rose-400 font-black uppercase tracking-widest text-xs inline-flex items-center gap-2 mb-3">
+          <span className="text-[var(--color-brand-saffron)] font-bold uppercase tracking-wider text-sm inline-flex items-center gap-2 mb-3 font-mono">
             ✦ System Dashboard // Active Chambers
           </span>
           <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-none mb-4">
-            Interactive <span className="bg-gradient-to-r from-rose-500 to-amber-500 bg-clip-text text-transparent">Chambers</span>
+            Interactive <span className="text-[var(--color-brand-electric-blue)]">Chambers</span>
           </h2>
-          <p className="text-zinc-600 dark:text-zinc-400 max-w-xl font-bold text-sm tracking-wide">
-            Explore the core domains of The Delegate Club via Stained Glass interactive chambers. Double-click shortcuts or click taskbar tabs to open tools.
+          <p className="text-gray-600 max-w-xl font-medium">
+            Explore the core domains of The Delegate Club via Windows retro widgets. Double-click shortcuts or click taskbar tabs to open tools.
           </p>
         </div>
 
         {/* ----------------------------------------------------
-            SIMULATED STAINED GLASS OS DESKTOP
+            SIMULATED RETRO WINDOWS DESKTOP
             ---------------------------------------------------- */}
-        <div className="w-full bg-white/10 dark:bg-zinc-950/10 backdrop-blur-md rounded-3xl border border-black/10 dark:border-white/10 p-4 md:p-6 shadow-2xl relative flex flex-col md:flex-row gap-6 min-h-[640px] items-stretch overflow-hidden">
+        <div className="w-full retro-desktop-grid rounded-3xl border-4 border-black p-4 md:p-6 shadow-[10px_10px_0px_rgba(0,0,0,1)] relative flex flex-col md:flex-row gap-6 min-h-[640px] items-stretch overflow-hidden">
+          
+          {/* Scanlines layer for authentic CRT monitor glow */}
+          <div className="absolute inset-0 crt-scanlines pointer-events-none z-30 opacity-[0.15]" />
 
           {/* Desktop Left Side: Shortcut Icons */}
-          <div className="flex md:flex-col flex-wrap gap-4 shrink-0 z-10 md:w-32 justify-start md:justify-start items-center">
+          <div className="flex md:flex-col flex-wrap gap-6 shrink-0 z-10 md:w-32 justify-start md:justify-start items-center">
             
             {windows.map(win => {
               const WinIcon = win.icon;
@@ -330,28 +338,24 @@ export function RetroWidgetsDashboard() {
                   onClick={() => focusWindow(win.id)}
                   className="flex flex-col items-center gap-1 group cursor-pointer focus:outline-none w-16 md:w-20"
                 >
-                  <div className={cn(
-                    "w-12 h-12 rounded-2xl border flex items-center justify-center shadow-sm transition-all duration-300",
-                    "bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md border-black/10 dark:border-white/10 group-hover:scale-105 group-hover:bg-white/60 dark:group-hover:bg-zinc-800/60",
-                    activeWindowId === win.id ? "border-rose-500/50 bg-rose-500/10 dark:bg-rose-500/5 shadow-[0_0_15px_-3px_rgba(225,29,72,0.3)]" : ""
-                  )}>
-                    <WinIcon className="w-5 h-5 text-black dark:text-white" />
+                  <div className={`w-12 h-12 rounded-xl bg-white border-2 border-black flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)] transition-all group-hover:bg-[#dfdfdf] group-hover:translate-x-[1px] group-hover:translate-y-[1px] group-hover:shadow-[2px_2px_0px_rgba(0,0,0,1)] ${activeWindowId === win.id ? "bg-[#c0c0c0] ring-2 ring-white/50" : ""}`}>
+                    <WinIcon className="w-6 h-6 text-black" />
                   </div>
-                  <span className="font-sans text-[10px] md:text-xs font-black text-black dark:text-zinc-300 tracking-wider uppercase text-center select-none leading-tight">
+                  <span className="font-mono text-[10px] md:text-xs font-bold text-white tracking-tight uppercase text-center drop-shadow-[1px_1px_1px_rgba(0,0,0,0.8)] select-none leading-tight">
                     {win.title}
                   </span>
                 </button>
               );
             })}
 
-            <div className="border-t border-black/10 dark:border-white/10 w-full hidden md:block my-2" />
+            <div className="border-t border-white/20 w-full hidden md:block my-2" />
             
-            {/* Additional Decorative Icons */}
-            <div className="hidden md:flex flex-col items-center gap-1 opacity-40 w-20 cursor-not-allowed">
-              <div className="w-12 h-12 rounded-2xl bg-white/20 dark:bg-zinc-900/20 border border-dashed border-black/10 dark:border-white/10 flex items-center justify-center">
-                <Laptop className="w-5 h-5 text-black dark:text-white" />
+            {/* Additional Decorative Retro Icons */}
+            <div className="hidden md:flex flex-col items-center gap-1 opacity-50 w-20 cursor-not-allowed">
+              <div className="w-12 h-12 rounded-xl bg-white/40 border-2 border-dashed border-black/40 flex items-center justify-center">
+                <Laptop className="w-6 h-6 text-black/50" />
               </div>
-              <span className="font-sans text-[9px] font-black text-black dark:text-zinc-400 uppercase text-center tracking-wider">My Court</span>
+              <span className="font-mono text-[9px] font-bold text-white uppercase text-center">My Court</span>
             </div>
 
           </div>
@@ -372,49 +376,54 @@ export function RetroWidgetsDashboard() {
                     exit={{ opacity: 0, scale: 0.95, y: 15 }}
                     style={{ zIndex: win.zIndex }}
                     onClick={() => focusWindow(win.id)}
-                    className="absolute inset-0 flex flex-col stained-glass border border-black/10 dark:border-white/10 rounded-2xl overflow-hidden shadow-2xl"
+                    className="absolute inset-0 flex flex-col retro-window-outset rounded-lg overflow-hidden border-2 border-black"
                   >
                     
                     {/* Window Title Bar */}
-                    <div className={cn(
-                      "px-4 py-2 flex justify-between items-center text-white select-none shadow-sm",
-                      isActive ? `${win.colorClass} ${win.glowClass}` : "bg-zinc-400 dark:bg-zinc-800"
-                    )}>
+                    <div className={`px-3 py-1.5 flex justify-between items-center text-white font-mono select-none ${isActive ? win.colorClass : "bg-[#808080]"}`}>
                       <div className="flex items-center gap-2">
                         <WinIcon className="w-4 h-4 text-white" />
-                        <span className="text-xs font-black uppercase tracking-widest">{win.title}</span>
+                        <span className="text-xs font-bold uppercase tracking-wider">{win.title}</span>
                       </div>
                       
                       {/* Window actions */}
-                      <div className="flex items-center gap-1.5">
+                      <div className="flex items-center gap-1">
                         <button
                           onClick={(e) => { e.stopPropagation(); toggleMinimize(win.id); }}
-                          className="w-5 h-5 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center text-white border border-white/10 transition-colors cursor-pointer"
+                          className="w-5 h-5 retro-button flex items-center justify-center text-black font-bold p-0"
                         >
                           <Minus className="w-3 h-3 stroke-[3]" />
                         </button>
                         <button
-                          className="w-5 h-5 rounded-lg bg-white/10 flex items-center justify-center text-white/40 border border-white/5 cursor-not-allowed"
+                          className="w-5 h-5 retro-button flex items-center justify-center text-black font-bold p-0 cursor-not-allowed"
                           disabled
                         >
                           <Square className="w-2.5 h-2.5 stroke-[3]" />
                         </button>
                         <button
                           onClick={(e) => { e.stopPropagation(); closeWindow(win.id); }}
-                          className="w-5 h-5 rounded-lg bg-white/20 hover:bg-rose-600 flex items-center justify-center text-white border border-white/10 transition-colors cursor-pointer"
+                          className="w-5 h-5 retro-button flex items-center justify-center text-black font-bold p-0 hover:bg-red-600 hover:text-white"
                         >
-                          <X className="w-3 h-3 stroke-[3]" />
+                          <X className="w-3.5 h-3.5 stroke-[3]" />
                         </button>
                       </div>
                     </div>
 
+                    {/* Window Menu Bar (File, Edit, View, Help) */}
+                    <div className="bg-[#c0c0c0] px-3 py-1 border-b border-[#808080] flex gap-4 text-[10px] font-mono text-black font-medium border-t border-white select-none">
+                      <span className="hover:underline cursor-pointer">File</span>
+                      <span className="hover:underline cursor-pointer">Actions</span>
+                      <span className="hover:underline cursor-pointer">Diagnostics</span>
+                      <span className="hover:underline cursor-pointer">Help</span>
+                    </div>
+
                     {/* Window Client Area */}
-                    <div className="flex-grow bg-white/50 dark:bg-zinc-950/50 backdrop-blur-md p-4 flex flex-col lg:flex-row gap-4 overflow-y-auto min-h-0 border-t border-black/5 dark:border-white/5">
+                    <div className="flex-grow bg-[#dfdfdf] p-4 flex flex-col lg:flex-row gap-4 overflow-y-auto min-h-0 border-t border-white">
                       
                       {/* Left Block: Animated Background Image Container */}
-                      <div className="lg:w-5/12 flex-shrink-0 bg-zinc-900 rounded-2xl overflow-hidden border border-black/10 dark:border-white/10 relative h-36 lg:h-auto min-h-[120px] flex items-center justify-center">
+                      <div className="lg:w-5/12 flex-shrink-0 bg-black rounded-lg overflow-hidden border border-[#808080] relative h-40 lg:h-auto min-h-[140px] flex items-center justify-center">
                         
-                        {/* Domain Specific Background Images */}
+                        {/* Domain Specific Background Images in Animation */}
                         {win.id === "mun" && (
                           <div 
                             className="absolute inset-0 bg-cover bg-center animate-pan-bg opacity-30" 
@@ -446,69 +455,67 @@ export function RetroWidgetsDashboard() {
                           />
                         )}
 
+                        {/* Scanline layer inside background */}
+                        <div className="absolute inset-0 crt-scanlines pointer-events-none opacity-20" />
+
                         {/* Title text overlay */}
                         <div className="relative z-10 text-center p-4">
-                          <h4 className="text-white font-sans text-xl font-black uppercase tracking-widest drop-shadow-md">
+                          <h4 className="text-white font-mono text-lg font-black uppercase tracking-widest drop-shadow-[2px_2px_2px_rgba(0,0,0,1)]">
                             {win.title}
                           </h4>
-                          <span className="text-rose-400 font-mono text-[9px] uppercase tracking-widest block mt-1 font-bold">
+                          <span className="text-[var(--color-brand-acid-green)] font-mono text-[9px] uppercase tracking-wider block mt-1 drop-shadow-[1px_1px_1px_rgba(0,0,0,1)] font-bold">
                             // system: active_chamber
                           </span>
                         </div>
                       </div>
 
                       {/* Right Block: Domain Interactive Tool client area */}
-                      <div className="flex-grow flex flex-col justify-between min-h-0 text-black dark:text-white">
+                      <div className="flex-grow flex flex-col justify-between min-h-0">
                         
                         {/* 1. Model UN Interactive Layout */}
                         {win.id === "mun" && (
                           <div className="flex-grow flex flex-col justify-between h-full">
                             <div className="space-y-4">
-                              <p className="text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed font-bold">
+                              <p className="font-mono text-xs text-black leading-relaxed font-bold">
                                 Draft dynamic bilateral resolution clauses for delegates. Choose options below:
                               </p>
 
                               <div className="grid grid-cols-2 gap-3">
                                 <div className="space-y-1">
-                                  <label className="text-[9px] font-sans font-black uppercase tracking-wider text-zinc-500">Delegation:</label>
+                                  <label className="text-[10px] font-mono font-bold uppercase text-gray-700 block">Delegation:</label>
                                   <select 
                                     value={munCountry} 
                                     onChange={(e) => setMunCountry(e.target.value)}
-                                    className="w-full bg-white/50 dark:bg-zinc-900/50 border border-black/10 dark:border-white/10 rounded-xl px-2.5 py-1.5 text-xs font-bold text-black dark:text-white outline-none focus:border-rose-500"
+                                    className="w-full retro-window-inset px-2.5 py-1.5 text-xs font-mono text-black outline-none border border-black"
                                   >
-                                    <option className="text-black dark:text-white dark:bg-zinc-900">India</option>
-                                    <option className="text-black dark:text-white dark:bg-zinc-900">United States</option>
-                                    <option className="text-black dark:text-white dark:bg-zinc-900">United Kingdom</option>
-                                    <option className="text-black dark:text-white dark:bg-zinc-900">Ukraine</option>
-                                    <option className="text-black dark:text-white dark:bg-zinc-900">France</option>
+                                    <option>India</option>
+                                    <option>United States</option>
+                                    <option>United Kingdom</option>
+                                    <option>Ukraine</option>
+                                    <option>France</option>
                                   </select>
                                 </div>
                                 <div className="space-y-1">
-                                  <label className="text-[9px] font-sans font-black uppercase tracking-wider text-zinc-500">Agenda Item:</label>
+                                  <label className="text-[10px] font-mono font-bold uppercase text-gray-700 block">Agenda Item:</label>
                                   <select 
                                     value={munAgenda} 
                                     onChange={(e) => setMunAgenda(e.target.value)}
-                                    className="w-full bg-white/50 dark:bg-zinc-900/50 border border-black/10 dark:border-white/10 rounded-xl px-2.5 py-1.5 text-xs font-bold text-black dark:text-white outline-none focus:border-rose-500"
+                                    className="w-full retro-window-inset px-2.5 py-1.5 text-xs font-mono text-black outline-none border border-black"
                                   >
-                                    <option className="text-black dark:text-white dark:bg-zinc-900">Cybersecurity</option>
-                                    <option className="text-black dark:text-white dark:bg-zinc-900">Climate Action</option>
-                                    <option className="text-black dark:text-white dark:bg-zinc-900">Space Junk</option>
-                                    <option className="text-black dark:text-white dark:bg-zinc-900">Crisis Council</option>
+                                    <option>Cybersecurity</option>
+                                    <option>Climate Action</option>
+                                    <option>Space Junk</option>
+                                    <option>Crisis Council</option>
                                   </select>
                                 </div>
                                 <div className="col-span-2 space-y-1">
-                                  <label className="text-[9px] font-sans font-black uppercase tracking-wider text-zinc-500 block">Stance Profile:</label>
-                                  <div className="flex gap-2 flex-wrap sm:flex-nowrap">
+                                  <label className="text-[10px] font-mono font-bold uppercase text-gray-700 block">Stance Profile:</label>
+                                  <div className="flex gap-2">
                                     {["Proactive Cooperation", "Bilateral Assertiveness", "Absolute Sovereign Veto"].map((stance) => (
                                       <button
                                         key={stance}
                                         onClick={() => setMunStance(stance)}
-                                        className={cn(
-                                          "flex-grow px-2 py-1.5 border rounded-xl text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer",
-                                          munStance === stance 
-                                            ? "bg-amber-500 text-white border-transparent shadow-md" 
-                                            : "bg-white/40 dark:bg-zinc-900/40 border-black/10 dark:border-white/10 text-black dark:text-zinc-300 hover:bg-white/60 dark:hover:bg-zinc-800/60"
-                                        )}
+                                        className={`flex-grow px-2 py-1 border text-[9px] font-mono font-bold transition-all ${munStance === stance ? "bg-[var(--color-brand-saffron)] text-black border-black shadow-[inset_1.5px_1.5px_0px_#000]" : "bg-[#c0c0c0] border-gray-400 retro-button"}`}
                                       >
                                         {stance.split(" ")[0]} Stance
                                       </button>
@@ -518,18 +525,18 @@ export function RetroWidgetsDashboard() {
                               </div>
 
                               {/* Terminal Display */}
-                              <div className="bg-zinc-950 border border-black/30 text-emerald-400 p-3 font-mono text-[10px] rounded-xl min-h-[90px] max-h-[120px] overflow-y-auto space-y-1 select-text scrollbar-thin shadow-inner">
+                              <div className="retro-window-inset bg-black text-emerald-400 p-3 font-mono text-[10px] rounded-lg min-h-[100px] max-h-[140px] overflow-y-auto space-y-1 select-text scrollbar-thin">
                                 {munConsoleLines.map((line, i) => (
                                   <p key={i} className="leading-relaxed whitespace-pre-wrap">{line}</p>
                                 ))}
                               </div>
                             </div>
 
-                            <div className="pt-4 border-t border-black/5 dark:border-white/5 flex justify-end">
+                            <div className="pt-4 border-t border-[#808080] flex justify-end">
                               <button
                                 onClick={compileResolution}
                                 disabled={isMunCompiling}
-                                className="bg-amber-500 hover:bg-amber-600 text-white px-5 py-2 rounded-xl text-xs font-black uppercase tracking-widest shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center gap-1.5"
+                                className="retro-button px-5 py-2 text-xs font-mono font-bold uppercase tracking-wider text-black border border-black hover:bg-[#c0c0c0] cursor-pointer flex items-center gap-1.5"
                               >
                                 {isMunCompiling ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
                                 <span>Compile Clause Draft</span>
@@ -542,22 +549,22 @@ export function RetroWidgetsDashboard() {
                         {win.id === "hackathon" && (
                           <div className="flex-grow flex flex-col justify-between h-full">
                             <div className="space-y-4">
-                              <p className="text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed font-bold">
+                              <p className="font-mono text-xs text-black leading-relaxed font-bold">
                                 Compile project bundles for the elite 48-hour build cycle. Config:
                               </p>
 
                               <div className="grid grid-cols-2 gap-3">
                                 <div className="space-y-1">
-                                  <label className="text-[9px] font-sans font-black uppercase tracking-wider text-zinc-500 block">Stack Target:</label>
+                                  <label className="text-[10px] font-mono font-bold uppercase text-gray-700 block">Stack Target:</label>
                                   <select 
                                     value={hackLang} 
                                     onChange={(e) => setHackLang(e.target.value)}
-                                    className="w-full bg-white/50 dark:bg-zinc-900/50 border border-black/10 dark:border-white/10 rounded-xl px-2.5 py-1.5 text-xs font-bold text-black dark:text-white outline-none focus:border-rose-500"
+                                    className="w-full retro-window-inset px-2.5 py-1.5 text-xs font-mono text-black outline-none border border-black"
                                   >
-                                    <option className="text-black dark:text-white dark:bg-zinc-900">TypeScript</option>
-                                    <option className="text-black dark:text-white dark:bg-zinc-900">Rust Engine</option>
-                                    <option className="text-black dark:text-white dark:bg-zinc-900">Python AI</option>
-                                    <option className="text-black dark:text-white dark:bg-zinc-900">C++ WebAssembly</option>
+                                    <option>TypeScript</option>
+                                    <option>Rust Engine</option>
+                                    <option>Python AI</option>
+                                    <option>C++ WebAssembly</option>
                                   </select>
                                 </div>
                                 <div className="flex items-center gap-2 pt-5">
@@ -566,9 +573,9 @@ export function RetroWidgetsDashboard() {
                                     id="caffeine"
                                     checked={hackCaffeine}
                                     onChange={(e) => setHackCaffeine(e.target.checked)}
-                                    className="w-4 h-4 cursor-pointer accent-emerald-500 rounded"
+                                    className="w-4 h-4 cursor-pointer accent-[var(--color-brand-emerald)]"
                                   />
-                                  <label htmlFor="caffeine" className="text-[10px] font-sans font-black uppercase tracking-wider text-zinc-600 dark:text-zinc-400 cursor-pointer select-none">
+                                  <label htmlFor="caffeine" className="text-[10px] font-mono font-bold uppercase text-gray-700 cursor-pointer">
                                     Caffeine Overclock
                                   </label>
                                 </div>
@@ -576,14 +583,14 @@ export function RetroWidgetsDashboard() {
 
                               {/* Progress bar */}
                               {isHackCompiling && (
-                                <div className="space-y-1 font-sans">
-                                  <div className="flex justify-between text-[9px] text-zinc-600 dark:text-zinc-400 font-black uppercase tracking-wider">
+                                <div className="space-y-1 font-mono">
+                                  <div className="flex justify-between text-[9px] text-gray-700 font-bold uppercase">
                                     <span>Compiling Stack...</span>
                                     <span>{hackProgress}%</span>
                                   </div>
-                                  <div className="w-full bg-zinc-200 dark:bg-zinc-900 border border-black/5 dark:border-white/5 h-3 p-0.5 rounded-lg overflow-hidden shadow-inner">
+                                  <div className="w-full bg-gray-300 border border-black h-4 p-0.5 rounded overflow-hidden">
                                     <div 
-                                      className="bg-emerald-500 h-full rounded-full transition-all duration-300"
+                                      className="bg-[var(--color-brand-emerald)] h-full transition-all duration-300"
                                       style={{ width: `${hackProgress}%` }}
                                     />
                                   </div>
@@ -591,18 +598,18 @@ export function RetroWidgetsDashboard() {
                               )}
 
                               {/* Terminal Display */}
-                              <div className="bg-zinc-950 border border-black/30 text-white p-3 font-mono text-[10px] rounded-xl min-h-[90px] max-h-[120px] overflow-y-auto space-y-1 select-text scrollbar-thin shadow-inner">
+                              <div className="retro-window-inset bg-black text-white p-3 font-mono text-[10px] rounded-lg min-h-[100px] max-h-[140px] overflow-y-auto space-y-1 select-text scrollbar-thin">
                                 {hackLogs.map((line, i) => (
                                   <p key={i} className="leading-relaxed whitespace-pre-wrap">{line}</p>
                                 ))}
                               </div>
                             </div>
 
-                            <div className="pt-4 border-t border-black/5 dark:border-white/5 flex justify-end">
+                            <div className="pt-4 border-t border-[#808080] flex justify-end">
                               <button
                                 onClick={runCompiler}
                                 disabled={isHackCompiling}
-                                className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-xl text-xs font-black uppercase tracking-widest shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center gap-1.5"
+                                className="retro-button px-5 py-2 text-xs font-mono font-bold uppercase tracking-wider text-black border border-black hover:bg-[#c0c0c0] cursor-pointer flex items-center gap-1.5"
                               >
                                 {isHackCompiling ? <Cpu className="w-3.5 h-3.5 animate-bounce" /> : <Terminal className="w-3.5 h-3.5" />}
                                 <span>Execute Run Script</span>
@@ -615,21 +622,21 @@ export function RetroWidgetsDashboard() {
                         {win.id === "sufi" && (
                           <div className="flex-grow flex flex-col justify-between h-full">
                             <div className="space-y-4">
-                              <div className="flex justify-between items-start gap-4 flex-wrap sm:flex-nowrap">
-                                <div className="space-y-1 flex-grow w-full sm:w-auto">
-                                  <label className="text-[9px] font-sans font-black uppercase tracking-wider text-zinc-500 block">Sufi Audio Mehfil Player:</label>
-                                  <div className="bg-zinc-900 p-2 flex items-center gap-3 rounded-xl border border-black/20 select-none shadow-sm">
+                              <div className="flex justify-between items-start gap-4">
+                                <div className="space-y-1 flex-grow">
+                                  <label className="text-[10px] font-mono font-bold uppercase text-gray-700 block">Sufi Audio Mehfil Player:</label>
+                                  <div className="retro-window-inset bg-black p-2 flex items-center gap-3 rounded-lg border border-black select-none">
                                     <button 
                                       onClick={() => setIsPlayingSufi(!isPlayingSufi)}
-                                      className="w-8 h-8 rounded-full bg-rose-600 flex items-center justify-center text-white shadow-md hover:scale-105 active:scale-95 transition-transform cursor-pointer"
+                                      className="w-8 h-8 rounded-full bg-[var(--color-brand-terracotta)] flex items-center justify-center text-white shadow-md hover:scale-105 active:scale-95 transition-transform"
                                     >
                                       {isPlayingSufi ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current translate-x-0.5" />}
                                     </button>
                                     <div className="flex-grow min-w-0">
-                                      <span className="block font-sans text-xs text-white truncate font-black uppercase tracking-wide">
+                                      <span className="block font-sans text-xs text-white truncate font-bold uppercase">
                                         {sufiTracks[activeTrackIndex].title}
                                       </span>
-                                      <span className="block font-mono text-[9px] text-rose-400 font-bold">
+                                      <span className="block font-mono text-[9px] text-[#C15C3D] font-bold">
                                         Artist: {sufiTracks[activeTrackIndex].artist}
                                       </span>
                                     </div>
@@ -637,61 +644,59 @@ export function RetroWidgetsDashboard() {
                                 </div>
 
                                 <div className="space-y-1 shrink-0 w-24">
-                                  <label className="text-[9px] font-sans font-black uppercase tracking-wider text-zinc-500 block">Volume ({sufiVolume}%):</label>
+                                  <label className="text-[10px] font-mono font-bold uppercase text-gray-700 block">Volume ({sufiVolume}%):</label>
                                   <div className="flex items-center gap-1.5 h-9 pt-1.5">
-                                    {sufiVolume === 0 ? <VolumeX className="w-4 h-4 text-black dark:text-white shrink-0" /> : <Volume2 className="w-4 h-4 text-black dark:text-white shrink-0" />}
+                                    {sufiVolume === 0 ? <VolumeX className="w-4 h-4 text-black shrink-0" /> : <Volume2 className="w-4 h-4 text-black shrink-0" />}
                                     <input
                                       type="range"
                                       min="0"
                                       max="100"
                                       value={sufiVolume}
                                       onChange={(e) => setSufiVolume(Number(e.target.value))}
-                                      className="w-full accent-rose-600 cursor-pointer h-1 bg-zinc-300 dark:bg-zinc-700 rounded-lg appearance-none focus:outline-none"
+                                      className="w-full accent-[var(--color-brand-terracotta)] cursor-pointer h-1.5 bg-gray-400 rounded-lg appearance-none focus:outline-none"
                                     />
                                   </div>
                                 </div>
                               </div>
 
                               {/* visualizer animation */}
-                              <div className="bg-zinc-950 p-2.5 rounded-xl flex flex-col gap-1.5 h-16 items-stretch justify-end shadow-inner">
-                                <div className="flex justify-between items-end gap-0.5 flex-grow">
+                              <div className="retro-window-inset bg-black p-3 rounded-lg flex flex-col gap-2 h-20 items-stretch justify-end">
+                                <div className="flex justify-between items-end gap-1 flex-grow">
                                   {sufiVisualizer.map((val, idx) => (
                                     <div 
                                       key={idx} 
-                                      className="bg-gradient-to-t from-rose-600 to-amber-400 w-full transition-all duration-150 rounded-t"
+                                      className="bg-gradient-to-t from-[var(--color-brand-terracotta)] to-[var(--color-brand-marigold)] w-full transition-all duration-150"
                                       style={{ height: isPlayingSufi ? `${val}%` : "5%" }}
                                     />
                                   ))}
                                 </div>
+                                <span className="font-mono text-[8px] text-gray-400 tracking-wider text-center uppercase">
+                                  Mehfil Equalizer Frequency Band
+                                </span>
                               </div>
 
                               {/* translation box */}
-                              <div className="p-3 bg-rose-500/5 dark:bg-rose-500/2 rounded-xl border border-rose-500/10 font-serif text-[11px] text-zinc-700 dark:text-zinc-300 italic leading-relaxed">
-                                <span className="block font-sans text-[8px] font-black uppercase tracking-widest text-rose-500 dark:text-rose-400 not-italic mb-1">
+                              <div className="p-3 bg-[#fff8f5] rounded-lg border border-gray-300 font-serif text-[11px] text-gray-700 italic leading-relaxed">
+                                <span className="block font-mono text-[9px] font-bold uppercase text-[#C15C3D] not-italic mb-1">
                                   Sufi Lyrics English Translation:
                                 </span>
                                 "{sufiTracks[activeTrackIndex].translation}"
                               </div>
                             </div>
 
-                            <div className="pt-4 border-t border-black/5 dark:border-white/5 flex justify-between items-center flex-wrap gap-2">
+                            <div className="pt-4 border-t border-[#808080] flex justify-between items-center">
                               <div className="flex gap-2">
                                 {sufiTracks.map((track, i) => (
                                   <button
                                     key={i}
                                     onClick={() => { setActiveTrackIndex(i); setIsPlayingSufi(true); }}
-                                    className={cn(
-                                      "px-2.5 py-1 text-[9px] font-sans font-black uppercase tracking-wider transition-all border rounded-lg cursor-pointer",
-                                      activeTrackIndex === i 
-                                        ? "bg-rose-600 text-white border-transparent shadow-sm" 
-                                        : "bg-white/40 dark:bg-zinc-900/40 border-black/10 dark:border-white/10 text-black dark:text-zinc-300 hover:bg-white/60 dark:hover:bg-zinc-800/60"
-                                    )}
+                                    className={`px-2.5 py-1 text-[9px] font-mono font-bold transition-all border ${activeTrackIndex === i ? "bg-[var(--color-brand-terracotta)] text-white border-black" : "bg-white border-gray-400 retro-button"}`}
                                   >
                                     Track 0{i + 1}
                                   </button>
                                 ))}
                               </div>
-                              <span className="font-sans text-[9px] text-zinc-500 uppercase font-black tracking-widest">
+                              <span className="font-mono text-[8px] text-gray-500 uppercase font-black">
                                 Status: {isPlayingSufi ? "Playing" : "Paused"}
                               </span>
                             </div>
@@ -702,43 +707,43 @@ export function RetroWidgetsDashboard() {
                         {win.id === "auction" && (
                           <div className="flex-grow flex flex-col justify-between h-full">
                             <div className="space-y-4">
-                              <p className="text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed font-bold">
+                              <p className="font-mono text-xs text-black leading-relaxed font-bold">
                                 Place live digital bids on prestigious club memorabilia:
                               </p>
 
                               <div className="space-y-3">
                                 <div className="space-y-1">
-                                  <label className="text-[9px] font-sans font-black uppercase tracking-wider text-zinc-500 block">Select Auction Lot:</label>
+                                  <label className="text-[10px] font-mono font-bold uppercase text-gray-700 block">Select Auction Lot:</label>
                                   <select 
                                     value={selectedAuctionIdx} 
                                     onChange={(e) => setSelectedAuctionIdx(Number(e.target.value))}
-                                    className="w-full bg-white/50 dark:bg-zinc-900/50 border border-black/10 dark:border-white/10 rounded-xl px-2.5 py-1.5 text-xs font-bold text-black dark:text-white outline-none focus:border-rose-500"
+                                    className="w-full retro-window-inset px-2.5 py-1.5 text-xs font-mono text-black outline-none border border-black"
                                   >
                                     {auctionItems.map((item, idx) => (
-                                      <option key={idx} value={idx} className="text-black dark:text-white dark:bg-zinc-900">{item.name}</option>
+                                      <option key={idx} value={idx}>{item.name}</option>
                                     ))}
                                   </select>
                                 </div>
 
-                                <div className="bg-blue-500/5 dark:bg-blue-500/2 rounded-xl p-3 border border-blue-500/10 grid grid-cols-2 gap-4">
+                                <div className="bg-[#fff8f5] rounded-xl p-3 border border-gray-300 grid grid-cols-2 gap-4">
                                   <div>
-                                    <span className="text-[8px] font-sans text-zinc-500 block uppercase font-black tracking-widest">Opening Bid:</span>
-                                    <span className="font-serif font-black text-sm text-black dark:text-white">
+                                    <span className="text-[9px] font-mono text-gray-500 block uppercase font-bold">Opening Bid:</span>
+                                    <span className="font-serif font-black text-sm text-black">
                                       ${auctionItems[selectedAuctionIdx].minBid}
                                     </span>
                                   </div>
                                   <div>
-                                    <span className="text-[8px] font-sans text-zinc-500 block uppercase font-black tracking-widest">Current Bid:</span>
-                                    <span className="font-serif font-black text-sm text-blue-600 dark:text-blue-400 text-glow-sapphire">
+                                    <span className="text-[9px] font-mono text-gray-500 block uppercase font-bold">Current Bid:</span>
+                                    <span className="font-serif font-black text-sm text-[var(--color-brand-marigold)]">
                                       ${auctionItems[selectedAuctionIdx].curBid}
                                     </span>
                                   </div>
                                 </div>
 
                                 <div className="space-y-1">
-                                  <div className="flex justify-between items-center text-[9px] font-sans font-black text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">
+                                  <div className="flex justify-between items-center text-[10px] font-mono font-bold text-gray-700 uppercase">
                                     <span>Set Your Bid Amount:</span>
-                                    <span className="text-blue-600 dark:text-blue-400 font-black text-xs">${bidValue}</span>
+                                    <span className="text-[var(--color-brand-marigold)] font-black text-xs">${bidValue}</span>
                                   </div>
                                   <input
                                     type="range"
@@ -747,23 +752,23 @@ export function RetroWidgetsDashboard() {
                                     step="100"
                                     value={bidValue}
                                     onChange={(e) => setBidValue(Number(e.target.value))}
-                                    className="w-full accent-blue-600 cursor-pointer h-1 bg-zinc-300 dark:bg-zinc-700 rounded-lg appearance-none focus:outline-none"
+                                    className="w-full accent-[var(--color-brand-marigold)] cursor-pointer h-1.5 bg-gray-400 rounded-lg appearance-none focus:outline-none"
                                   />
                                 </div>
                               </div>
 
                               {/* Terminal Display */}
-                              <div className="bg-zinc-950 border border-black/30 text-white p-3 font-mono text-[10px] rounded-xl min-h-[70px] max-h-[100px] overflow-y-auto space-y-1 select-text scrollbar-thin shadow-inner">
+                              <div className="retro-window-inset bg-black text-white p-3 font-mono text-[10px] rounded-lg min-h-[90px] max-h-[120px] overflow-y-auto space-y-1 select-text scrollbar-thin">
                                 {auctionLogs.map((line, i) => (
                                   <p key={i} className="leading-relaxed whitespace-pre-wrap">{line}</p>
                                 ))}
                               </div>
                             </div>
 
-                            <div className="pt-4 border-t border-black/5 dark:border-white/5 flex justify-end">
+                            <div className="pt-4 border-t border-[#808080] flex justify-end">
                               <button
                                 onClick={placeBid}
-                                className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl text-xs font-black uppercase tracking-widest shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center gap-1.5"
+                                className="retro-button px-5 py-2 text-xs font-mono font-bold uppercase tracking-wider text-black border border-black hover:bg-[#c0c0c0] cursor-pointer flex items-center gap-1.5"
                               >
                                 <Gavel className="w-3.5 h-3.5" />
                                 <span>Submit High Bid</span>
@@ -776,24 +781,19 @@ export function RetroWidgetsDashboard() {
                         {win.id === "sharktank" && (
                           <div className="flex-grow flex flex-col justify-between h-full">
                             <div className="space-y-4">
-                              <p className="text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed font-bold">
+                              <p className="font-mono text-xs text-black leading-relaxed font-bold">
                                 Pitch your revolutionary startup venture. Calibrate terms below:
                               </p>
 
                               <div className="grid grid-cols-3 gap-3">
                                 <div className="col-span-3 space-y-1">
-                                  <label className="text-[9px] font-sans font-black uppercase tracking-wider text-zinc-500 block">Pitch Arena / Sector:</label>
-                                  <div className="flex gap-2 flex-wrap sm:flex-nowrap">
+                                  <label className="text-[10px] font-mono font-bold uppercase text-gray-700 block">Pitch Arena / Sector:</label>
+                                  <div className="flex gap-2">
                                     {["EdTech", "CleanTech", "Culture", "AI / Web3"].map((domain) => (
                                       <button
                                         key={domain}
                                         onClick={() => setSharkDomain(domain)}
-                                        className={cn(
-                                          "flex-grow px-2 py-1.5 border rounded-xl text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer",
-                                          sharkDomain === domain 
-                                            ? "bg-purple-600 text-white border-transparent shadow-sm" 
-                                            : "bg-white/40 dark:bg-zinc-900/40 border-black/10 dark:border-white/10 text-black dark:text-zinc-300 hover:bg-white/60 dark:hover:bg-zinc-800/60"
-                                        )}
+                                        className={`flex-grow px-2 py-1 border text-[9px] font-mono font-bold transition-all ${sharkDomain === domain ? "bg-[var(--color-brand-electric-blue)] text-white border-black shadow-[inset_1.5px_1.5px_0px_#000]" : "bg-[#c0c0c0] border-gray-400 retro-button"}`}
                                       >
                                         {domain}
                                       </button>
@@ -801,10 +801,10 @@ export function RetroWidgetsDashboard() {
                                   </div>
                                 </div>
 
-                                <div className="space-y-1 col-span-3 sm:col-span-3">
-                                  <div className="flex justify-between items-center text-[9px] font-sans font-black text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">
+                                <div className="space-y-1 col-span-3">
+                                  <div className="flex justify-between items-center text-[10px] font-mono font-bold text-gray-700 uppercase">
                                     <span>Valuation Request ($M):</span>
-                                    <span className="text-black dark:text-white font-black text-xs">${sharkValuation} Million</span>
+                                    <span className="text-black font-black text-xs">${sharkValuation} Million</span>
                                   </div>
                                   <input
                                     type="range"
@@ -813,14 +813,14 @@ export function RetroWidgetsDashboard() {
                                     step="0.5"
                                     value={sharkValuation}
                                     onChange={(e) => setSharkValuation(Number(e.target.value))}
-                                    className="w-full accent-purple-600 cursor-pointer h-1 bg-zinc-300 dark:bg-zinc-700 rounded-lg appearance-none focus:outline-none"
+                                    className="w-full accent-[var(--color-brand-electric-blue)] cursor-pointer h-1.5 bg-gray-400 rounded-lg appearance-none focus:outline-none"
                                   />
                                 </div>
 
-                                <div className="space-y-1 col-span-3 sm:col-span-3">
-                                  <div className="flex justify-between items-center text-[9px] font-sans font-black text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">
+                                <div className="space-y-1 col-span-3">
+                                  <div className="flex justify-between items-center text-[10px] font-mono font-bold text-gray-700 uppercase">
                                     <span>Equity Offered (%):</span>
-                                    <span className="text-black dark:text-white font-black text-xs">{sharkEquity}% Equity</span>
+                                    <span className="text-black font-black text-xs">{sharkEquity}% Equity</span>
                                   </div>
                                   <input
                                     type="range"
@@ -829,34 +829,35 @@ export function RetroWidgetsDashboard() {
                                     step="1"
                                     value={sharkEquity}
                                     onChange={(e) => setSharkEquity(Number(e.target.value))}
-                                    className="w-full accent-purple-600 cursor-pointer h-1 bg-zinc-300 dark:bg-zinc-700 rounded-lg appearance-none focus:outline-none"
+                                    className="w-full accent-[var(--color-brand-electric-blue)] cursor-pointer h-1.5 bg-gray-400 rounded-lg appearance-none focus:outline-none"
                                   />
                                 </div>
                               </div>
 
                               {/* Shark Speech Bubble */}
                               {sharkReaction && (
-                                <div className="p-3 bg-purple-500/5 border border-purple-500/10 rounded-xl relative font-sans text-xs text-zinc-700 dark:text-zinc-300">
-                                  <strong className="block text-purple-600 dark:text-purple-400 uppercase text-[9px] font-black tracking-widest mb-1">
+                                <div className="p-3 bg-white rounded-xl border-2 border-black relative font-mono text-[10px] text-black">
+                                  <div className="absolute top-[-8px] left-6 w-3 h-3 bg-white border-t-2 border-l-2 border-black rotate-45" />
+                                  <strong className="block text-[var(--color-brand-electric-blue)] uppercase mb-1">
                                     💬 {sharkReaction.name}:
                                   </strong>
-                                  <p className="italic font-serif">"{sharkReaction.quote}"</p>
+                                  <p className="italic">"{sharkReaction.quote}"</p>
                                 </div>
                               )}
 
                               {/* Terminal Logs */}
-                              <div className="bg-zinc-950 border border-black/30 text-sky-400 p-3 font-mono text-[10px] rounded-xl min-h-[50px] max-h-[80px] overflow-y-auto space-y-1 select-text scrollbar-thin shadow-inner">
+                              <div className="retro-window-inset bg-black text-[#569aff] p-3 font-mono text-[10px] rounded-lg min-h-[60px] max-h-[90px] overflow-y-auto space-y-1 select-text scrollbar-thin">
                                 {sharkLogs.map((line, i) => (
                                   <p key={i} className="leading-relaxed whitespace-pre-wrap">{line}</p>
                                 ))}
                               </div>
                             </div>
 
-                            <div className="pt-4 border-t border-black/5 dark:border-white/5 flex justify-end">
+                            <div className="pt-4 border-t border-[#808080] flex justify-end">
                               <button
                                 onClick={pitchVenture}
                                 disabled={isPitching}
-                                className="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-xl text-xs font-black uppercase tracking-widest shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center gap-1.5"
+                                className="retro-button px-5 py-2 text-xs font-mono font-bold uppercase tracking-wider text-black border border-black hover:bg-[#c0c0c0] cursor-pointer flex items-center gap-1.5"
                               >
                                 {isPitching ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <TrendingUp className="w-3.5 h-3.5" />}
                                 <span>Pitch to Sharks</span>
@@ -870,10 +871,10 @@ export function RetroWidgetsDashboard() {
                     </div>
 
                     {/* Window Status Bar */}
-                    <div className="bg-zinc-300 dark:bg-zinc-900 px-4 py-1.5 text-[9px] font-mono text-zinc-600 dark:text-zinc-400 flex justify-between border-t border-black/5 dark:border-white/5 select-none">
-                      <span>CHAMBER: {win.title.toUpperCase()}</span>
+                    <div className="bg-[#c0c0c0] px-3 py-1 border-t border-[#808080] text-[9px] font-mono text-black flex justify-between border-b border-white select-none">
+                      <span>Chamber: {win.title.toUpperCase()}</span>
                       <span className="flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 border border-black inline-block animate-pulse" />
                         <span>ONLINE // PORT: 8080</span>
                       </span>
                     </div>
@@ -887,33 +888,28 @@ export function RetroWidgetsDashboard() {
             {windows.every(w => !w.isOpen || w.isMinimized) && (
               <motion.div
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 0.4 }}
+                animate={{ opacity: 0.3 }}
                 className="text-center space-y-3 select-none pointer-events-none"
               >
-                <Laptop className="w-16 h-16 text-black dark:text-white mx-auto stroke-[1.5]" />
-                <h4 className="font-sans text-xs font-black text-black dark:text-white uppercase tracking-widest">
+                <Laptop className="w-20 h-20 text-white mx-auto stroke-[1.5]" />
+                <h4 className="font-mono text-sm font-black text-white uppercase tracking-widest">
                   DELEGATE OS // DEBATE SYSTEM V1.0
                 </h4>
-                <p className="text-[10px] text-zinc-500 dark:text-zinc-400 font-bold uppercase tracking-wider">Double-click a shortcut to open the chamber widget.</p>
+                <p className="font-mono text-[10px] text-white">Double-click a desktop shortcut to open the chamber widget.</p>
               </motion.div>
             )}
           </div>
 
           {/* Bottom Taskbar */}
-          <div className="absolute bottom-0 left-0 right-0 h-12 bg-white/60 dark:bg-zinc-950/60 backdrop-blur-xl border-t border-black/10 dark:border-white/10 px-3 flex justify-between items-center z-20 select-none">
+          <div className="absolute bottom-0 left-0 right-0 h-11 bg-[#c0c0c0] border-t-2 border-white px-2 flex justify-between items-center z-20 select-none">
             
             {/* Start Button */}
             <div className="relative">
               <button
                 onClick={() => setStartMenuOpen(!startMenuOpen)}
-                className={cn(
-                  "h-8 px-3.5 flex items-center gap-1.5 border rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-sm",
-                  startMenuOpen
-                    ? "bg-rose-500 text-white border-transparent scale-95"
-                    : "bg-white/50 dark:bg-zinc-900/50 border-black/10 dark:border-white/10 text-black dark:text-white hover:bg-white/80 dark:hover:bg-zinc-800/80"
-                )}
+                className={`h-7 px-3 flex items-center gap-1.5 border border-black text-xs font-mono font-bold uppercase ${startMenuOpen ? "retro-button-active shadow-[inset_1.5px_1.5px_0px_#000]" : "retro-button"}`}
               >
-                <span className="text-rose-500 dark:text-rose-400 font-black">✦</span>
+                <span className="text-[var(--color-brand-electric-blue)] font-black">☸</span>
                 <span>Start</span>
               </button>
 
@@ -924,23 +920,23 @@ export function RetroWidgetsDashboard() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute bottom-10 left-0 w-52 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-2xl border border-black/10 dark:border-white/10 rounded-2xl flex flex-col z-40 p-2 shadow-2xl"
+                    className="absolute bottom-9 left-0 w-52 retro-window-outset rounded border-2 border-black flex flex-col z-40 p-1"
                   >
-                    <div className="bg-gradient-to-r from-rose-500 to-amber-500 text-white px-3 py-1.5 rounded-xl font-sans text-[9px] uppercase tracking-widest font-black mb-1.5">
+                    <div className="bg-[#000080] text-white px-3 py-1 font-mono text-[9px] uppercase tracking-widest font-black border-b border-black">
                       System Menu
                     </div>
                     {windows.map(win => (
                       <button
                         key={win.id}
                         onClick={() => { focusWindow(win.id); setStartMenuOpen(false); }}
-                        className="w-full text-left px-3 py-2 rounded-lg font-sans text-xs font-black uppercase tracking-wider text-zinc-700 dark:text-zinc-300 hover:bg-rose-500 hover:text-white flex items-center gap-2.5 transition-colors cursor-pointer"
+                        className="w-full text-left px-3 py-2 font-mono text-xs text-black hover:bg-[#000080] hover:text-white flex items-center gap-2.5 transition-colors cursor-pointer"
                       >
-                        <win.icon className="w-3.5 h-3.5 text-zinc-500 group-hover:text-white" />
+                        <win.icon className="w-3.5 h-3.5" />
                         <span>Open {win.title}</span>
                       </button>
                     ))}
-                    <div className="border-t border-black/5 dark:border-white/5 my-1.5" />
-                    <div className="px-3 py-1 font-sans text-[8px] text-zinc-400 dark:text-zinc-500 uppercase tracking-widest font-black">
+                    <div className="border-t border-[#808080] my-1" />
+                    <div className="px-3 py-1.5 font-mono text-[9px] text-[#808080] uppercase">
                       The Delegate Club v1.0
                     </div>
                   </motion.div>
@@ -949,7 +945,7 @@ export function RetroWidgetsDashboard() {
             </div>
 
             {/* Active window tabs in Taskbar */}
-            <div className="flex-grow flex gap-1.5 px-3 overflow-x-auto justify-start max-w-[calc(100%-140px)] scrollbar-none">
+            <div className="flex-grow flex gap-1.5 px-3 overflow-x-auto justify-start max-w-[calc(100%-140px)]">
               {windows.filter(w => w.isOpen).map(win => {
                 const isActive = activeWindowId === win.id && !win.isMinimized;
                 return (
@@ -962,12 +958,7 @@ export function RetroWidgetsDashboard() {
                         focusWindow(win.id);
                       }
                     }}
-                    className={cn(
-                      "h-8 px-3 rounded-xl flex items-center gap-1.5 max-w-[120px] truncate border font-sans text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer shadow-sm shrink-0",
-                      isActive
-                        ? "bg-rose-500/10 dark:bg-rose-500/5 text-rose-500 dark:text-rose-400 border-rose-500/30 scale-95"
-                        : "bg-white/40 dark:bg-zinc-900/40 border-black/10 dark:border-white/10 text-black dark:text-zinc-300 hover:bg-white/60 dark:hover:bg-zinc-800/60"
-                    )}
+                    className={`h-7 px-3 rounded flex items-center gap-1.5 max-w-[120px] truncate border border-black font-mono text-[10px] font-bold uppercase transition-all cursor-pointer ${isActive ? "retro-button-active shadow-[inset_1.5px_1.5px_0px_#000] bg-[#dfdfdf]" : "retro-button bg-[#c0c0c0]"}`}
                   >
                     <win.icon className="w-3.5 h-3.5 shrink-0" />
                     <span className="truncate">{win.title}</span>
@@ -977,9 +968,9 @@ export function RetroWidgetsDashboard() {
             </div>
 
             {/* System Status Tray */}
-            <div className="h-8 px-3 bg-white/40 dark:bg-zinc-900/40 backdrop-blur-md rounded-xl border border-black/10 dark:border-white/10 flex items-center gap-2 font-sans text-[10px] text-black dark:text-zinc-300 font-bold">
-              <AlertCircle className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400 animate-pulse" />
-              <Clock className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" />
+            <div className="h-7 px-3 bg-[#c0c0c0] shadow-[inset_1.5px_1.5px_0px_#808080,inset_-1.5px_-1.5px_0px_#fff] flex items-center gap-2 border border-gray-400 font-mono text-[10px] text-black font-semibold">
+              <AlertCircle className="w-3.5 h-3.5 text-gray-700 animate-pulse" />
+              <Clock className="w-3.5 h-3.5 text-gray-700" />
               <span>{currentTime || "12:00 PM"}</span>
             </div>
 
