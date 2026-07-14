@@ -1,0 +1,60 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { Navbar } from "@/components/ui/Navbar";
+import { Footer } from "@/components/ui/Footer";
+import { HeroMotion } from "@/components/sections/HeroMotion";
+import { RetroWidgetsDashboard } from "@/components/sections/RetroWidgetsDashboard";
+import { MonumentTiers } from "@/components/sections/MonumentTiers";
+import { PranayamaBreathing } from "@/components/sections/PranayamaBreathing";
+import { BIOSBootScreen } from "@/components/ui/BIOSBootScreen";
+
+export default function Home() {
+  const [isBooted, setIsBooted] = useState(false);
+  const [checkingBoot, setCheckingBoot] = useState(true);
+
+  // Check if session already booted
+  useEffect(() => {
+    const booted = sessionStorage.getItem("sabha_os_booted") === "true";
+    setIsBooted(booted);
+    setCheckingBoot(false);
+  }, []);
+
+  const handleBootComplete = () => {
+    setIsBooted(true);
+    sessionStorage.setItem("sabha_os_booted", "true");
+  };
+
+  if (checkingBoot) {
+    return <div className="min-h-screen bg-black" />;
+  }
+
+  if (!isBooted) {
+    return <BIOSBootScreen onBootComplete={handleBootComplete} />;
+  }
+
+  return (
+    <main className="relative bg-[var(--color-brand-khaki-sand)] min-h-screen text-black selection:bg-[var(--color-brand-marigold)] selection:text-black">
+      {/* Subtle full-page heritage watermark background */}
+      <div 
+        className="absolute inset-0 bg-repeat opacity-[0.04] pointer-events-none mix-blend-multiply z-0"
+        style={{ 
+          backgroundImage: "url('https://images.unsplash.com/photo-1599740831146-80a63ee80098?q=80&w=1200&auto=format&fit=crop')",
+          backgroundSize: "600px",
+          backgroundAttachment: "fixed"
+        }}
+      />
+      <Navbar />
+      
+      <HeroMotion />
+
+      <MonumentTiers />
+      
+      <RetroWidgetsDashboard />
+      
+      <Footer />
+
+      <PranayamaBreathing />
+    </main>
+  );
+}
