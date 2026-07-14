@@ -5,7 +5,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, Preload } from "@react-three/drei";
 import * as THREE from "three";
 
-// Individual Stained Glass Panel
+// Individual Stained Glass Panel (Used for PC/Laptop 3D view)
 interface GlassPanelProps {
   position: [number, number, number];
   color: string;
@@ -13,10 +13,9 @@ interface GlassPanelProps {
   rotation: [number, number, number];
   scrollProgress: { current: number };
   index: number;
-  isMobile: boolean;
 }
 
-function GlassPanel({ position, color, args, rotation, scrollProgress, index, isMobile }: GlassPanelProps) {
+function GlassPanel({ position, color, args, rotation, scrollProgress, index }: GlassPanelProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   
   // Use target values for lerping
@@ -29,16 +28,13 @@ function GlassPanel({ position, color, args, rotation, scrollProgress, index, is
 
     const progress = scrollProgress.current;
     
-    // Scale down movement on mobile portrait devices to prevent clipping past the camera lens
-    const scaleFactor = isMobile ? 0.2 : 1;
-
     // As user scrolls, panels float outwards in Z, rotate around Y, and offset slightly in Y
     // Different panels float differently based on their index (creates an explosion/assembly effect)
-    const floatOffsetZ = progress * 6 * (index % 2 === 0 ? 1 : -0.7) * scaleFactor;
-    const floatOffsetY = progress * 1.5 * Math.sin(index * 2) * scaleFactor;
-    const floatOffsetX = progress * 2.5 * Math.cos(index * 1.5) * scaleFactor;
-    const scrollRotY = progress * Math.PI * 0.8 * (index % 2 === 0 ? 1 : -1) * scaleFactor;
-    const scrollRotX = progress * Math.PI * 0.25 * scaleFactor;
+    const floatOffsetZ = progress * 6 * (index % 2 === 0 ? 1 : -0.7);
+    const floatOffsetY = progress * 1.5 * Math.sin(index * 2);
+    const floatOffsetX = progress * 2.5 * Math.cos(index * 1.5);
+    const scrollRotY = progress * Math.PI * 0.8 * (index % 2 === 0 ? 1 : -1);
+    const scrollRotX = progress * Math.PI * 0.25;
 
     // Mouse influence (tactile hover response)
     const mouseX = (state.pointer.x * Math.PI) / 8;
@@ -72,8 +68,8 @@ function GlassPanel({ position, color, args, rotation, scrollProgress, index, is
   );
 }
 
-// Stained Glass Window Assembly Group
-function GlassAssembly({ isMobile }: { isMobile: boolean }) {
+// Stained Glass Window Assembly Group (Used for PC/Laptop 3D view)
+function GlassAssembly() {
   const groupRef = useRef<THREE.Group>(null);
   const scrollProgress = useRef(0);
 
@@ -132,12 +128,11 @@ function GlassAssembly({ isMobile }: { isMobile: boolean }) {
   useFrame(() => {
     if (!groupRef.current) return;
     const progress = scrollProgress.current;
-    const scaleFactor = isMobile ? 0.2 : 1;
 
     // Frame slowly expands and rotates as a whole
-    groupRef.current.position.z = THREE.MathUtils.lerp(groupRef.current.position.z, progress * 4 * scaleFactor, 0.08);
-    groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, progress * 0.3 * scaleFactor, 0.08);
-    groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, progress * -0.15 * scaleFactor, 0.08);
+    groupRef.current.position.z = THREE.MathUtils.lerp(groupRef.current.position.z, progress * 4, 0.08);
+    groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, progress * 0.3, 0.08);
+    groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, progress * -0.15, 0.08);
   });
 
   return (
@@ -153,7 +148,6 @@ function GlassAssembly({ isMobile }: { isMobile: boolean }) {
             args={p.args as [number, number, number]}
             rotation={p.rotation as [number, number, number]}
             scrollProgress={scrollProgress}
-            isMobile={isMobile}
           />
         ))}
 
@@ -178,17 +172,56 @@ export function StainedGlass3D() {
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      // Treat touch devices and screen widths below 768px as mobile
+      setIsMobile(window.innerWidth < 768 || "ontouchstart" in window || navigator.maxTouchPoints > 0);
     };
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  // 1. Mobile specific rendering: High-performance animated SVG stained glass mosaic
+  if (isMobile) {
+    return (
+      <div className="absolute inset-0 w-full h-full overflow-hidden bg-transparent z-0 pointer-events-none select-none">
+        <svg className="w-full h-full opacity-30 dark:opacity-15" viewBox="0 0 100 100" preserveAspectRatio="none">
+          {/* Pulsating colorful glass polygons */}
+          <polygon points="0,0 30,0 20,30 0,20" className="animate-[pulse_5s_infinite_ease-in-out] fill-rose-500/25" />
+          <polygon points="30,0 70,0 60,35 20,30" className="animate-[pulse_6s_infinite_ease-in-out_1s] fill-amber-500/25" />
+          <polygon points="70,0 100,0 100,25 60,35" className="animate-[pulse_7s_infinite_ease-in-out_2s] fill-blue-500/25" />
+          
+          <polygon points="0,20 20,30 15,60 0,55" className="animate-[pulse_5.5s_infinite_ease-in-out_0.5s] fill-purple-500/25" />
+          <polygon points="20,30 60,35 50,70 15,60" className="animate-[pulse_6.5s_infinite_ease-in-out_1.5s] fill-emerald-500/25" />
+          <polygon points="60,35 100,25 100,60 50,70" className="animate-[pulse_5s_infinite_ease-in-out_2.5s] fill-rose-500/25" />
+          
+          <polygon points="0,55 15,60 10,100 0,100" className="animate-[pulse_7s_infinite_ease-in-out_1s] fill-amber-500/25" />
+          <polygon points="15,60 50,70 45,100 10,100" className="animate-[pulse_5.5s_infinite_ease-in-out_3s] fill-blue-500/25" />
+          <polygon points="50,70 100,60 100,100 45,100" className="animate-[pulse_6s_infinite_ease-in-out_2s] fill-purple-500/25" />
+          
+          {/* Mosaic leaded framing grid overlay */}
+          <line x1="30" y1="0" x2="20" y2="30" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          <line x1="70" y1="0" x2="60" y2="35" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          <line x1="20" y1="30" x2="0" y2="20" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          <line x1="60" y1="35" x2="20" y2="30" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          <line x1="100" y1="25" x2="60" y2="35" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          <line x1="15" y1="60" x2="0" y2="55" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          <line x1="50" y1="70" x2="15" y2="60" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          <line x1="100" y1="60" x2="50" y2="70" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          <line x1="15" y1="60" x2="10" y2="100" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          <line x1="50" y1="70" x2="45" y2="100" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+        </svg>
+
+        {/* Soft rotating colored light overlays */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-rose-500/5 via-transparent to-blue-500/5 mix-blend-overlay animate-[spin_30s_infinite_linear] pointer-events-none" />
+      </div>
+    );
+  }
+
+  // 2. Desktop/Laptop specific rendering: Interactive 3D WebGL Canvas
   return (
     <div className="w-full h-full absolute inset-0 z-0 pointer-events-none opacity-90 dark:opacity-85">
       <Canvas
-        camera={{ position: [0, 0, isMobile ? 11 : 7.5], fov: 45 }}
+        camera={{ position: [0, 0, 7.5], fov: 45 }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         dpr={[1, 1.5]}
       >
@@ -201,7 +234,7 @@ export function StainedGlass3D() {
           <spotLight position={[-5, 10, -5]} angle={0.25} penumbra={1} intensity={3.5} color="#e11d48" />
           <spotLight position={[0, -10, 5]} angle={0.4} penumbra={1} intensity={2} color="#2563eb" />
           
-          <GlassAssembly isMobile={isMobile} />
+          <GlassAssembly />
           
           <Preload all />
         </Suspense>
