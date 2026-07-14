@@ -294,6 +294,86 @@ export function RetroWidgetsDashboard() {
     }, 1500);
   };
 
+  const glassConfigs: Record<WindowId, {
+    name: string;
+    activeBg: string;
+    inactiveBg: string;
+    activeBorder: string;
+    inactiveBorder: string;
+    activeGlow: string;
+    iconActive: string;
+    iconInactive: string;
+    textActive: string;
+    textInactive: string;
+    colorName: string;
+  }> = {
+    mun: {
+      name: "Model UN",
+      activeBg: "bg-amber-500/20 dark:bg-amber-500/30",
+      inactiveBg: "bg-white/10 dark:bg-zinc-900/10 hover:bg-amber-500/15",
+      activeBorder: "border-amber-400 dark:border-amber-300",
+      inactiveBorder: "border-black/80 dark:border-white/10 hover:border-amber-500/50",
+      activeGlow: "shadow-[0_0_15px_rgba(217,119,6,0.6)]",
+      iconActive: "text-amber-300 dark:text-amber-200 drop-shadow-[0_0_8px_rgba(217,119,6,0.8)]",
+      iconInactive: "text-zinc-700 dark:text-zinc-300 group-hover:text-amber-500 dark:group-hover:text-amber-400",
+      textActive: "text-amber-400 dark:text-amber-300 font-extrabold tracking-wider",
+      textInactive: "text-white/80 group-hover:text-white",
+      colorName: "amber"
+    },
+    hackathon: {
+      name: "Hackathons",
+      activeBg: "bg-emerald-500/20 dark:bg-emerald-500/30",
+      inactiveBg: "bg-white/10 dark:bg-zinc-900/10 hover:bg-emerald-500/15",
+      activeBorder: "border-emerald-400 dark:border-emerald-300",
+      inactiveBorder: "border-black/80 dark:border-white/10 hover:border-emerald-500/50",
+      activeGlow: "shadow-[0_0_15px_rgba(5,150,105,0.6)]",
+      iconActive: "text-emerald-300 dark:text-emerald-200 drop-shadow-[0_0_8px_rgba(5,150,105,0.8)]",
+      iconInactive: "text-zinc-700 dark:text-zinc-300 group-hover:text-emerald-500 dark:group-hover:text-emerald-400",
+      textActive: "text-emerald-400 dark:text-emerald-300 font-extrabold tracking-wider",
+      textInactive: "text-white/80 group-hover:text-white",
+      colorName: "emerald"
+    },
+    sufi: {
+      name: "Sufi Night",
+      activeBg: "bg-rose-500/20 dark:bg-rose-500/30",
+      inactiveBg: "bg-white/10 dark:bg-zinc-900/10 hover:bg-rose-500/15",
+      activeBorder: "border-rose-400 dark:border-rose-300",
+      inactiveBorder: "border-black/80 dark:border-white/10 hover:border-rose-500/50",
+      activeGlow: "shadow-[0_0_15px_rgba(225,29,72,0.6)]",
+      iconActive: "text-rose-300 dark:text-rose-200 drop-shadow-[0_0_8px_rgba(225,29,72,0.8)]",
+      iconInactive: "text-zinc-700 dark:text-zinc-300 group-hover:text-rose-500 dark:group-hover:text-rose-400",
+      textActive: "text-rose-400 dark:text-rose-300 font-extrabold tracking-wider",
+      textInactive: "text-white/80 group-hover:text-white",
+      colorName: "ruby"
+    },
+    auction: {
+      name: "Auctions",
+      activeBg: "bg-purple-500/20 dark:bg-purple-500/30",
+      inactiveBg: "bg-white/10 dark:bg-zinc-900/10 hover:bg-purple-500/15",
+      activeBorder: "border-purple-400 dark:border-purple-300",
+      inactiveBorder: "border-black/80 dark:border-white/10 hover:border-purple-500/50",
+      activeGlow: "shadow-[0_0_15px_rgba(124,58,237,0.6)]",
+      iconActive: "text-purple-300 dark:text-purple-200 drop-shadow-[0_0_8px_rgba(124,58,237,0.8)]",
+      iconInactive: "text-zinc-700 dark:text-zinc-300 group-hover:text-purple-500 dark:group-hover:text-purple-400",
+      textActive: "text-purple-400 dark:text-purple-300 font-extrabold tracking-wider",
+      textInactive: "text-white/80 group-hover:text-white",
+      colorName: "amethyst"
+    },
+    sharktank: {
+      name: "Shark Tank",
+      activeBg: "bg-blue-500/20 dark:bg-blue-500/30",
+      inactiveBg: "bg-white/10 dark:bg-zinc-900/10 hover:bg-blue-500/15",
+      activeBorder: "border-blue-400 dark:border-blue-300",
+      inactiveBorder: "border-black/80 dark:border-white/10 hover:border-blue-500/50",
+      activeGlow: "shadow-[0_0_15px_rgba(37,99,235,0.6)]",
+      iconActive: "text-blue-300 dark:text-blue-200 drop-shadow-[0_0_8px_rgba(37,99,235,0.8)]",
+      iconInactive: "text-zinc-700 dark:text-zinc-300 group-hover:text-blue-500 dark:group-hover:text-blue-400",
+      textActive: "text-blue-400 dark:text-blue-300 font-extrabold tracking-wider",
+      textInactive: "text-white/80 group-hover:text-white",
+      colorName: "sapphire"
+    }
+  };
+
   return (
     <section className="py-24 bg-[var(--color-brand-khaki-sand)] relative z-10 border-t-2 border-black overflow-hidden flex flex-col items-center">
       {/* Background patterns */}
@@ -331,17 +411,41 @@ export function RetroWidgetsDashboard() {
             
             {windows.map(win => {
               const WinIcon = win.icon;
+              const config = glassConfigs[win.id];
+              const isActive = activeWindowId === win.id;
+
               return (
                 <button
                   key={win.id}
                   onDoubleClick={() => focusWindow(win.id)}
                   onClick={() => focusWindow(win.id)}
-                  className="flex flex-col items-center gap-1 group cursor-pointer focus:outline-none w-16 md:w-20"
+                  className="flex flex-col items-center gap-1.5 group cursor-pointer focus:outline-none w-16 md:w-20 relative transition-transform duration-200 active:scale-95"
                 >
-                  <div className={`w-12 h-12 rounded-xl bg-white border-2 border-black flex items-center justify-center shadow-[3px_3px_0px_rgba(0,0,0,1)] transition-all group-hover:bg-[#dfdfdf] group-hover:translate-x-[1px] group-hover:translate-y-[1px] group-hover:shadow-[2px_2px_0px_rgba(0,0,0,1)] ${activeWindowId === win.id ? "bg-[#c0c0c0] ring-2 ring-white/50" : ""}`}>
-                    <WinIcon className="w-6 h-6 text-black" />
+                  <div 
+                    className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center relative overflow-hidden transition-all duration-300 border-2 backdrop-blur-md select-none ${
+                      isActive 
+                        ? `${config.activeBg} ${config.activeBorder} ${config.activeGlow} translate-x-[1px] translate-y-[1px]` 
+                        : `${config.inactiveBg} ${config.inactiveBorder} shadow-[3px_3px_0px_rgba(0,0,0,1)] group-hover:translate-x-[1px] group-hover:translate-y-[1px] group-hover:shadow-[2px_2px_0px_rgba(0,0,0,1)]`
+                    }`}
+                  >
+                    {/* Glass Shine Diagonal Reflection Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/15 pointer-events-none z-10" />
+                    
+                    {/* Glass Top Highlight border */}
+                    <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-white/20 pointer-events-none z-10" />
+                    
+                    <WinIcon 
+                      className={`w-5 h-5 md:w-6 md:h-6 transition-all duration-300 relative z-20 ${
+                        isActive ? config.iconActive : config.iconInactive
+                      }`} 
+                    />
                   </div>
-                  <span className="font-mono text-[10px] md:text-xs font-bold text-white tracking-tight uppercase text-center drop-shadow-[1px_1px_1px_rgba(0,0,0,0.8)] select-none leading-tight">
+                  
+                  <span 
+                    className={`font-mono text-[9px] md:text-[11px] uppercase text-center select-none leading-tight transition-all duration-300 px-1 ${
+                      isActive ? `${config.textActive} text-glow-${config.colorName}` : config.textInactive
+                    }`}
+                  >
                     {win.title}
                   </span>
                 </button>
@@ -351,11 +455,11 @@ export function RetroWidgetsDashboard() {
             <div className="border-t border-white/20 w-full hidden md:block my-2" />
             
             {/* Additional Decorative Retro Icons */}
-            <div className="hidden md:flex flex-col items-center gap-1 opacity-50 w-20 cursor-not-allowed">
-              <div className="w-12 h-12 rounded-xl bg-white/40 border-2 border-dashed border-black/40 flex items-center justify-center">
-                <Laptop className="w-6 h-6 text-black/50" />
+            <div className="hidden md:flex flex-col items-center gap-1.5 opacity-40 w-20 cursor-not-allowed">
+              <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/5 border-2 border-dashed border-white/20 flex items-center justify-center backdrop-blur-sm">
+                <Laptop className="w-5 h-5 md:w-6 md:h-6 text-white/50" />
               </div>
-              <span className="font-mono text-[9px] font-bold text-white uppercase text-center">My Court</span>
+              <span className="font-mono text-[9px] md:text-[10px] font-bold text-white/50 uppercase text-center">My Court</span>
             </div>
 
           </div>
