@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo, Suspense, useEffect } from "react";
+import { useRef, useMemo, Suspense, useEffect, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, Preload } from "@react-three/drei";
 import * as THREE from "three";
@@ -13,9 +13,10 @@ interface GlassPanelProps {
   rotation: [number, number, number];
   scrollProgress: { current: number };
   index: number;
+  isMobile: boolean;
 }
 
-function GlassPanel({ position, color, args, rotation, scrollProgress, index }: GlassPanelProps) {
+function GlassPanel({ position, color, args, rotation, scrollProgress, index, isMobile }: GlassPanelProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   
   // Use target values for lerping
@@ -28,13 +29,16 @@ function GlassPanel({ position, color, args, rotation, scrollProgress, index }: 
 
     const progress = scrollProgress.current;
     
+    // Scale down movement on mobile portrait devices to prevent clipping past the camera lens
+    const scaleFactor = isMobile ? 0.2 : 1;
+
     // As user scrolls, panels float outwards in Z, rotate around Y, and offset slightly in Y
     // Different panels float differently based on their index (creates an explosion/assembly effect)
-    const floatOffsetZ = progress * 6 * (index % 2 === 0 ? 1 : -0.7);
-    const floatOffsetY = progress * 1.5 * Math.sin(index * 2);
-    const floatOffsetX = progress * 2.5 * Math.cos(index * 1.5);
-    const scrollRotY = progress * Math.PI * 0.8 * (index % 2 === 0 ? 1 : -1);
-    const scrollRotX = progress * Math.PI * 0.25;
+    const floatOffsetZ = progress * 6 * (index % 2 === 0 ? 1 : -0.7) * scaleFactor;
+    const floatOffsetY = progress * 1.5 * Math.sin(index * 2) * scaleFactor;
+    const floatOffsetX = progress * 2.5 * Math.cos(index * 1.5) * scaleFactor;
+    const scrollRotY = progress * Math.PI * 0.8 * (index % 2 === 0 ? 1 : -1) * scaleFactor;
+    const scrollRotX = progress * Math.PI * 0.25 * scaleFactor;
 
     // Mouse influence (tactile hover response)
     const mouseX = (state.pointer.x * Math.PI) / 8;
@@ -69,7 +73,7 @@ function GlassPanel({ position, color, args, rotation, scrollProgress, index }: 
 }
 
 // Stained Glass Window Assembly Group
-function GlassAssembly() {
+function GlassAssembly({ isMobile }: { isMobile: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
   const scrollProgress = useRef(0);
 
@@ -124,15 +128,16 @@ function GlassAssembly() {
     { position: [0, -2.45, 0.1], args: [5, 0.1, 0.22] }
   ], []);
 
-  // Animating the lead frames differently (they should separate slightly less than the glass, keeping the frame shape)
+  // Animating the lead frames
   useFrame(() => {
     if (!groupRef.current) return;
     const progress = scrollProgress.current;
+    const scaleFactor = isMobile ? 0.2 : 1;
 
     // Frame slowly expands and rotates as a whole
-    groupRef.current.position.z = THREE.MathUtils.lerp(groupRef.current.position.z, progress * 4, 0.08);
-    groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, progress * 0.3, 0.08);
-    groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, progress * -0.15, 0.08);
+    groupRef.current.position.z = THREE.MathUtils.lerp(groupRef.current.position.z, progress * 4 * scaleFactor, 0.08);
+    groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, progress * 0.3 * scaleFactor, 0.08);
+    groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, progress * -0.15 * scaleFactor, 0.08);
   });
 
   return (
@@ -148,6 +153,7 @@ function GlassAssembly() {
             args={p.args as [number, number, number]}
             rotation={p.rotation as [number, number, number]}
             scrollProgress={scrollProgress}
+            isMobile={isMobile}
           />
         ))}
 
@@ -168,10 +174,21 @@ function GlassAssembly() {
 }
 
 export function StainedGlass3D() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <div className="w-full h-full absolute inset-0 z-0 pointer-events-none opacity-90 dark:opacity-85">
       <Canvas
-        camera={{ position: [0, 0, 7.5], fov: 45 }}
+        camera={{ position: [0, 0, isMobile ? 11 : 7.5], fov: 45 }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         dpr={[1, 1.5]}
       >
@@ -184,7 +201,7 @@ export function StainedGlass3D() {
           <spotLight position={[-5, 10, -5]} angle={0.25} penumbra={1} intensity={3.5} color="#e11d48" />
           <spotLight position={[0, -10, 5]} angle={0.4} penumbra={1} intensity={2} color="#2563eb" />
           
-          <GlassAssembly />
+          <GlassAssembly isMobile={isMobile} />
           
           <Preload all />
         </Suspense>
