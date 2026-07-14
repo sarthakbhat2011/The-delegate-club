@@ -6,30 +6,30 @@ import { HeroMotion } from "@/components/sections/HeroMotion";
 import { RetroWidgetsDashboard } from "@/components/sections/RetroWidgetsDashboard";
 import { MonumentTiers } from "@/components/sections/MonumentTiers";
 import { PranayamaBreathing } from "@/components/sections/PranayamaBreathing";
+import { StainedGlass3D } from "@/components/3d/StainedGlass3D";
 
 export default function Home() {
   return (
-    <main className="relative bg-[var(--color-brand-khaki-sand)] min-h-screen text-black selection:bg-[var(--color-brand-marigold)] selection:text-black">
-      {/* Subtle full-page heritage watermark background */}
-      <div 
-        className="absolute inset-0 bg-repeat opacity-[0.04] pointer-events-none mix-blend-multiply z-0"
-        style={{ 
-          backgroundImage: "url('https://images.unsplash.com/photo-1599740831146-80a63ee80098?q=80&w=1200&auto=format&fit=crop')",
-          backgroundSize: "600px",
-          backgroundAttachment: "fixed"
-        }}
-      />
-      <Navbar />
+    <main className="relative bg-background dark:bg-black min-h-screen text-foreground transition-colors duration-500 selection:bg-rose-500 selection:text-white">
+      {/* 3D Interactive Stained Glass background */}
+      <div className="fixed inset-0 w-full h-screen z-0 pointer-events-none">
+        <StainedGlass3D />
+      </div>
       
-      <HeroMotion />
+      {/* Content wrapper with higher z-index to overlay on background */}
+      <div className="relative z-10">
+        <Navbar />
+        
+        <HeroMotion />
 
-      <MonumentTiers />
-      
-      <RetroWidgetsDashboard />
-      
-      <Footer />
+        <MonumentTiers />
+        
+        <RetroWidgetsDashboard />
+        
+        <Footer />
 
-      <PranayamaBreathing />
+        <PranayamaBreathing />
+      </div>
     </main>
   );
 }

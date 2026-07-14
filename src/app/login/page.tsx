@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ShieldAlert, X, Minus, Square, Key, User } from "lucide-react";
+import { StainedGlass3D } from "@/components/3d/StainedGlass3D";
+import { cn } from "@/lib/utils";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -52,16 +54,13 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[var(--color-brand-khaki-sand)] flex items-center justify-center relative overflow-hidden px-4 select-none">
-      
-      {/* Background CRT Scanlines */}
-      <div className="absolute inset-0 crt-scanlines pointer-events-none opacity-[0.16] z-30" />
+    <main className="min-h-screen bg-background dark:bg-black transition-colors duration-500 flex items-center justify-center relative overflow-hidden px-4 select-none">
+      {/* 3D Interactive Stained Glass background */}
+      <div className="fixed inset-0 w-full h-screen z-0 pointer-events-none">
+        <StainedGlass3D />
+      </div>
 
-      {/* Retro desktop background grid */}
-      <div className="absolute inset-0 opacity-[0.08] pointer-events-none" 
-           style={{ backgroundImage: "radial-gradient(#000 1px, transparent 1px)", backgroundSize: "16px 16px" }} />
-
-      <Link href="/" className="absolute top-8 left-8 text-black hover:underline z-20 font-mono tracking-widest text-xs uppercase flex items-center gap-1">
+      <Link href="/" className="absolute top-8 left-8 text-zinc-600 dark:text-zinc-400 hover:text-rose-500 dark:hover:text-rose-400 transition-colors z-20 font-sans tracking-widest text-xs font-black uppercase flex items-center gap-1.5">
         &larr; Return to Court OS
       </Link>
 
@@ -69,81 +68,77 @@ export default function LoginPage() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4 }}
-        className="retro-window-outset w-full max-w-md rounded-lg border-2 border-[var(--color-brand-cyber-purple)] flex flex-col shadow-[0_0_25px_rgba(168,85,247,0.35)] hover:shadow-[0_0_35px_rgba(168,85,247,0.55)] transition-shadow duration-300 relative z-10"
+        className="stained-glass w-full max-w-md rounded-2xl border border-black/10 dark:border-white/10 flex flex-col shadow-2xl hover:shadow-[0_0_35px_rgba(225,29,72,0.15)] transition-shadow duration-500 relative z-10 overflow-hidden"
       >
         
-        {/* Title Bar - Cyber Gradient */}
-        <div className="px-3 py-1.5 flex justify-between items-center text-white font-mono bg-gradient-to-r from-[var(--color-brand-cyber-purple)] via-[#5b21b6] to-[var(--color-brand-electric-blue)] select-none">
+        {/* Title Bar */}
+        <div className="px-4 py-2 flex justify-between items-center text-white bg-gradient-to-r from-rose-500 to-amber-500 shadow-sm select-none">
           <div className="flex items-center gap-2">
             <Key className="w-4 h-4 text-white animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-wider">LOGIN.SYS // Cybernetic Auth Portal</span>
+            <span className="text-xs font-black uppercase tracking-widest">LOGIN.SYS // Cybernetic Auth Portal</span>
           </div>
           
-          <div className="flex items-center gap-1">
-            <button className="w-5 h-5 retro-button flex items-center justify-center text-black font-bold p-0">
+          <div className="flex items-center gap-1.5">
+            <button className="w-5 h-5 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center text-white border border-white/10 transition-colors cursor-pointer">
               <Minus className="w-3 h-3 stroke-[3]" />
             </button>
-            <button className="w-5 h-5 retro-button flex items-center justify-center text-black font-bold p-0 cursor-not-allowed" disabled>
+            <button className="w-5 h-5 rounded-lg bg-white/10 flex items-center justify-center text-white/40 border border-white/5 cursor-not-allowed" disabled>
               <Square className="w-2.5 h-2.5 stroke-[3]" />
             </button>
-            <Link href="/" className="w-5 h-5 retro-button flex items-center justify-center text-black font-bold p-0 hover:bg-red-600 hover:text-white">
-              <X className="w-3.5 h-3.5 stroke-[3]" />
+            <Link href="/" className="w-5 h-5 rounded-lg bg-white/20 hover:bg-rose-600 flex items-center justify-center text-white border border-white/10 transition-colors">
+              <X className="w-3 h-3 stroke-[3]" />
             </Link>
           </div>
         </div>
 
         {/* Options Bar */}
-        <div className="bg-[#c0c0c0] px-3 py-1 border-b border-[#808080] flex justify-between items-center text-[10px] font-mono text-black font-medium border-t border-white select-none">
+        <div className="bg-white/40 dark:bg-zinc-950/40 backdrop-blur-md px-4 py-2 border-b border-black/5 dark:border-white/5 flex justify-between items-center text-[10px] font-sans text-black dark:text-zinc-300 font-black uppercase tracking-wider select-none">
           <div className="flex gap-4">
-            <span className="hover:underline cursor-pointer">Security</span>
-            <span className="hover:underline cursor-pointer">Help</span>
+            <span className="hover:text-rose-500 cursor-pointer">Security</span>
+            <span className="hover:text-rose-500 cursor-pointer">Help</span>
           </div>
           {/* Cyber status pill */}
-          <div className="flex items-center gap-1 bg-black/90 border border-emerald-400 text-emerald-400 px-1.5 py-0.5 rounded text-[8px] font-bold shadow-[0_0_8px_rgba(52,211,153,0.15)]">
+          <div className="flex items-center gap-1.5 bg-black/80 dark:bg-black/90 border border-emerald-500/30 text-emerald-400 px-2 py-0.5 rounded-lg text-[8px] font-bold shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             <span>CYBER_SHIELD: ON</span>
           </div>
         </div>
 
         {/* Login Form body */}
-        <form onSubmit={handleSubmit} className="bg-[#dfdfdf] p-6 flex flex-col gap-5 border-t border-white">
+        <form onSubmit={handleSubmit} className="bg-white/50 dark:bg-zinc-950/50 backdrop-blur-md p-6 flex flex-col gap-5 border-t border-black/5 dark:border-white/5 text-foreground">
           
           {/* Intro diagnostic alert block */}
-          <div className="bg-[#fff8f5] p-3 rounded border border-gray-300 font-mono text-[10px] text-[#87361e] space-y-1">
+          <div className="bg-rose-500/5 dark:bg-rose-500/2 p-3 rounded-xl border border-rose-500/10 font-mono text-[9px] text-rose-600 dark:text-rose-400 space-y-1 shadow-inner">
             <span className="block font-bold">WARNING:</span>
             <span className="block">Authorized Council members only. Credentials routed through multi-layered cryptographic vaults.</span>
           </div>
 
-          <div className="space-y-4 font-mono text-xs text-black">
+          <div className="space-y-4 font-sans text-xs">
             
             {/* Username field */}
             <div className="space-y-1">
-              <label className="block font-bold text-gray-700 uppercase">User Name / Email:</label>
-              <div className="relative">
-                <input 
-                  type="email"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  required
-                  className="w-full retro-window-inset bg-white border border-gray-400 p-2.5 rounded text-black outline-none focus:border-[var(--color-brand-electric-blue)] focus:ring-1 focus:ring-[var(--color-brand-electric-blue)] focus:shadow-[0_0_10px_rgba(37,99,235,0.2)] transition-all font-mono"
-                  placeholder="delegate@court.edu"
-                />
-              </div>
+              <label className="block font-black text-zinc-600 dark:text-zinc-400 uppercase tracking-wider text-[10px]">User Name / Email:</label>
+              <input 
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
+                className="w-full bg-white/60 dark:bg-zinc-900/60 border border-black/10 dark:border-white/10 p-3 rounded-xl text-black dark:text-white outline-none focus:border-rose-500 transition-colors font-sans"
+                placeholder="delegate@court.edu"
+              />
             </div>
 
             {/* Passphrase field */}
             <div className="space-y-1">
-              <label className="block font-bold text-gray-700 uppercase">Passphrase / Key:</label>
-              <div className="relative">
-                <input 
-                  type="password"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  required
-                  className="w-full retro-window-inset bg-white border border-gray-400 p-2.5 rounded text-black outline-none focus:border-[var(--color-brand-electric-blue)] focus:ring-1 focus:ring-[var(--color-brand-electric-blue)] focus:shadow-[0_0_10px_rgba(37,99,235,0.2)] transition-all font-mono"
-                  placeholder="••••••••"
-                />
-              </div>
+              <label className="block font-black text-zinc-600 dark:text-zinc-400 uppercase tracking-wider text-[10px]">Passphrase / Key:</label>
+              <input 
+                type="password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required
+                className="w-full bg-white/60 dark:bg-zinc-900/60 border border-black/10 dark:border-white/10 p-3 rounded-xl text-black dark:text-white outline-none focus:border-rose-500 transition-colors font-sans"
+                placeholder="••••••••"
+              />
             </div>
 
           </div>
@@ -152,24 +147,24 @@ export default function LoginPage() {
             <motion.p 
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }}
-              className="text-red-700 font-mono text-xs text-center border-t border-red-200 pt-2"
+              className="text-rose-500 font-mono text-xs text-center border-t border-rose-500/10 pt-2"
             >
               ⚠️ {error}
             </motion.p>
           )}
 
           {/* Form buttons row */}
-          <div className="border-t border-[#808080] pt-4 mt-2 flex justify-end gap-2.5 select-none">
+          <div className="border-t border-black/5 dark:border-white/5 pt-4 mt-2 flex justify-end gap-2.5 select-none">
             <Link 
               href="/join"
-              className="retro-button px-5 py-2 text-xs font-mono font-bold uppercase text-black border border-black hover:bg-[#c0c0c0] cursor-pointer flex items-center justify-center"
+              className="bg-white/40 dark:bg-zinc-900/40 border border-black/10 dark:border-white/10 text-black dark:text-zinc-300 px-5 py-2 rounded-xl text-xs font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center justify-center"
             >
               Apply now
             </Link>
             <button 
               type="submit"
               disabled={isLoading}
-              className="retro-button px-6 py-2 text-xs font-mono font-bold uppercase text-black border border-black hover:bg-[#c0c0c0] cursor-pointer flex items-center justify-center disabled:opacity-50 disabled:cursor-wait"
+              className="bg-rose-500 hover:bg-rose-600 text-white px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center justify-center disabled:opacity-50 disabled:cursor-wait"
             >
               {isLoading ? "Verifying..." : "OK [Enter]"}
             </button>
@@ -178,7 +173,7 @@ export default function LoginPage() {
         </form>
 
         {/* Window Footer Status bar */}
-        <div className="bg-[#c0c0c0] px-3 py-1 border-t border-[#808080] text-[9px] font-mono text-black flex justify-between border-b border-white select-none">
+        <div className="bg-zinc-300 dark:bg-zinc-900 px-4 py-1.5 text-[9px] font-mono text-zinc-600 dark:text-zinc-400 flex justify-between border-t border-black/5 dark:border-white/5 select-none shadow-sm">
           <span>Auth Module Active</span>
           <span>Clock (IST): {currentTime || "12:00:00 PM"}</span>
         </div>

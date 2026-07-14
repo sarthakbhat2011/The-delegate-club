@@ -55,13 +55,13 @@ export function PranayamaBreathing() {
   const getPhaseColor = () => {
     switch (breathPhase) {
       case "Inhale":
-        return "text-[var(--color-brand-saffron)]";
+        return "text-rose-500 dark:text-rose-400";
       case "Hold (In)":
-        return "text-[var(--color-brand-marigold)]";
+        return "text-amber-500 dark:text-amber-400";
       case "Exhale":
-        return "text-[var(--color-brand-terracotta)]";
+        return "text-indigo-500 dark:text-indigo-400";
       case "Hold (Out)":
-        return "text-[var(--color-brand-emerald)]";
+        return "text-emerald-500 dark:text-emerald-400";
     }
   };
 
@@ -71,7 +71,7 @@ export function PranayamaBreathing() {
       <div className="fixed bottom-6 right-6 z-40">
         <motion.button
           onClick={() => setIsOpen(true)}
-          className="w-14 h-14 rounded-full bg-[var(--color-brand-saffron)] border-2 border-black flex items-center justify-center text-black shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_rgba(0,0,0,1)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer group"
+          className="w-14 h-14 rounded-full bg-rose-500/20 dark:bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 backdrop-blur-md shadow-[0_0_15px_-3px_rgba(225,29,72,0.3)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer group"
           whileHover={{ scale: 1.05 }}
         >
           <Activity className="w-6 h-6 animate-pulse group-hover:rotate-12 transition-transform" />
@@ -86,24 +86,24 @@ export function PranayamaBreathing() {
               initial={{ opacity: 0, scale: 0.9, y: 50 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 50 }}
-              className="w-full max-w-[400px] bg-[var(--color-brand-deep-indigo)] border-2 border-black rounded-3xl p-8 relative text-white shadow-[8px_8px_0px_rgba(0,0,0,1)]"
+              className="w-full max-w-[400px] stained-glass border border-black/10 dark:border-white/10 bg-white/40 dark:bg-zinc-950/40 backdrop-blur-2xl rounded-3xl p-8 relative text-foreground shadow-2xl"
             >
               {/* Close Button */}
               <button
                 onClick={() => setIsOpen(false)}
-                className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors cursor-pointer"
+                className="absolute top-4 right-4 p-2 text-zinc-500 hover:text-zinc-800 dark:hover:text-white rounded-full bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/10 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
 
               <div className="text-center mb-6">
-                <span className="text-[var(--color-brand-saffron)] font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-1.5 mb-2">
+                <span className="text-rose-500 dark:text-rose-400 font-black text-xs uppercase tracking-widest flex items-center justify-center gap-1.5 mb-2">
                   🧘 Pranayama Space
                 </span>
-                <h3 className="text-2xl font-black uppercase tracking-tight text-white">
+                <h3 className="text-2xl font-black uppercase tracking-tight text-foreground">
                   Breathing Resonance
                 </h3>
-                <p className="text-sm text-gray-400 mt-1">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 font-bold uppercase mt-1">
                   Take a moment to center your focus. inspired by box breathing.
                 </p>
               </div>
@@ -114,24 +114,24 @@ export function PranayamaBreathing() {
                 <motion.div
                   animate={{
                     scale: getScale(),
-                    opacity: [0.15, 0.3, 0.15]
+                    opacity: [0.1, 0.2, 0.1]
                   }}
                   transition={{
                     duration: 4,
                     ease: "easeInOut",
                     repeat: Infinity
                   }}
-                  className="absolute w-36 h-36 rounded-full bg-[var(--color-brand-marigold)] filter blur-[40px] -z-10"
+                  className="absolute w-36 h-36 rounded-full bg-rose-500 filter blur-[40px] -z-10"
                 />
 
                 {/* Animated Lotus representation */}
                 <motion.div
                   animate={{ scale: getScale() }}
                   transition={{ duration: 4, ease: "easeInOut" }}
-                  className="w-32 h-32 rounded-full border-4 border-black bg-[var(--color-brand-khaki-sand)] flex items-center justify-center relative shadow-lg"
+                  className="w-32 h-32 rounded-full border border-black/10 dark:border-white/10 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md flex items-center justify-center relative shadow-md"
                 >
                   {/* Decorative Lotus Petals (SVG) */}
-                  <svg className="absolute w-[140%] h-[140%] fill-[var(--color-brand-saffron)]/20 stroke-black stroke-[0.7] animate-spin-slow pointer-events-none" viewBox="0 0 100 100">
+                  <svg className="absolute w-[140%] h-[140%] fill-rose-500/10 dark:fill-rose-400/10 stroke-rose-500/30 dark:stroke-rose-400/30 stroke-[0.7] animate-spin-slow pointer-events-none" viewBox="0 0 100 100">
                     <path d="M50,15 C45,35 55,35 50,15 Z" transform="rotate(0 50 50)" />
                     <path d="M50,15 C45,35 55,35 50,15 Z" transform="rotate(45 50 50)" />
                     <path d="M50,15 C45,35 55,35 50,15 Z" transform="rotate(90 50 50)" />
@@ -144,7 +144,7 @@ export function PranayamaBreathing() {
 
                   {/* Inner breathing count text */}
                   <div className="text-center z-10 select-none">
-                    <span className="text-black text-3xl font-black leading-none block">
+                    <span className="text-foreground text-3xl font-black leading-none block">
                       {secondsRemaining}s
                     </span>
                   </div>
@@ -152,8 +152,8 @@ export function PranayamaBreathing() {
               </div>
 
               {/* Breath Phase Banner */}
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-4 text-center">
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1">
+              <div className="bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 rounded-2xl p-4 text-center">
+                <span className="text-[10px] font-black text-zinc-500 dark:text-zinc-400 uppercase tracking-widest block mb-1">
                   Current Phase
                 </span>
                 <span className={`text-xl font-black uppercase tracking-wide ${getPhaseColor()} transition-colors duration-300`}>

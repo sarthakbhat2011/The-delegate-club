@@ -10,6 +10,7 @@ import {
   ArrowLeft, ArrowRight, ShieldAlert 
 } from "lucide-react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
@@ -90,49 +91,49 @@ export function ApplicationForm() {
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="retro-window-outset max-w-2xl mx-auto rounded-lg border-2 border-black flex flex-col shadow-[8px_8px_0px_rgba(0,0,0,1)] text-black select-none"
+        className="stained-glass max-w-2xl mx-auto rounded-2xl border border-black/10 dark:border-white/10 flex flex-col shadow-2xl text-foreground select-none overflow-hidden"
       >
         {/* Success Dialog Title */}
-        <div className="px-3 py-1.5 flex justify-between items-center text-white font-mono bg-gradient-to-r from-emerald-700 to-emerald-500">
+        <div className="px-4 py-2 flex justify-between items-center text-white bg-gradient-to-r from-emerald-600 to-emerald-500 shadow-sm">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-white animate-bounce" />
-            <span className="text-xs font-bold uppercase tracking-wider">SUCCESS // COUNCIL CHARTER ISSUED</span>
+            <span className="text-xs font-black uppercase tracking-widest">SUCCESS // COUNCIL CHARTER ISSUED</span>
           </div>
-          <Link href="/" className="w-4 h-4 rounded border border-black flex items-center justify-center text-[9px] bg-[#c0c0c0] text-black hover:bg-red-500 hover:text-white">
+          <Link href="/" className="w-5 h-5 rounded-lg bg-white/20 hover:bg-rose-600 flex items-center justify-center text-white border border-white/10 transition-colors">
             ✕
           </Link>
         </div>
 
-        <div className="bg-[#dfdfdf] p-8 text-center flex flex-col items-center gap-6 border-t border-white">
-          <div className="w-16 h-16 rounded-full bg-emerald-100 border-2 border-black flex items-center justify-center font-bold text-3xl shadow-[3px_3px_0px_rgba(0,0,0,1)] text-emerald-700">
+        <div className="bg-white/50 dark:bg-zinc-950/50 backdrop-blur-md p-8 text-center flex flex-col items-center gap-6 border-t border-black/5 dark:border-white/5">
+          <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center font-bold text-3xl shadow-sm text-emerald-600 dark:text-emerald-400">
             ✓
           </div>
           
           <div className="space-y-2">
-            <h2 className="text-3xl font-serif font-black text-emerald-800 uppercase tracking-wide">
+            <h2 className="text-3xl font-sans font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-wide">
               BY ROYAL DECREE
             </h2>
-            <p className="text-sm font-sans text-gray-700 font-bold max-w-md mx-auto leading-relaxed">
+            <p className="text-sm font-sans text-zinc-700 dark:text-zinc-300 font-bold max-w-md mx-auto leading-relaxed">
               Your strategy application has been successfully logged. The High Council of Ministers will inspect your credentials shortly.
             </p>
           </div>
 
-          <div className="retro-window-inset p-3 bg-white border border-gray-400 font-mono text-[10px] text-black space-y-1 w-full max-w-md text-left">
+          <div className="bg-black/5 dark:bg-white/5 p-3 rounded-xl border border-black/5 dark:border-white/5 font-mono text-[10px] text-zinc-600 dark:text-zinc-400 space-y-1 w-full max-w-md text-left shadow-inner">
             <p>• <strong>STATUS:</strong> QUEUED_FOR_INDUCTION</p>
             <p>• <strong>VERIFICATION:</strong> SECURE MERIT PROTOCOL PASS [OK]</p>
           </div>
 
-          <div className="border-t border-[#808080] pt-4 w-full flex justify-center">
+          <div className="border-t border-black/5 dark:border-white/5 pt-4 w-full flex justify-center">
             <Link 
               href="/"
-              className="retro-button px-6 py-2 text-xs font-mono font-bold uppercase text-black border border-black hover:bg-[#c0c0c0]"
+              className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer"
             >
               Return to desktop
             </Link>
           </div>
         </div>
 
-        <div className="bg-[#c0c0c0] px-3 py-1 border-t border-[#808080] text-[9px] font-mono text-black flex justify-between border-b border-white select-none">
+        <div className="bg-zinc-300 dark:bg-zinc-900 px-4 py-1.5 text-[9px] font-mono text-zinc-600 dark:text-zinc-400 flex justify-between border-t border-black/5 dark:border-white/5 select-none shadow-sm">
           <span>Charter Signed</span>
           <span>Clock (IST): {currentTime || "12:00:00 PM"}</span>
         </div>
@@ -141,59 +142,62 @@ export function ApplicationForm() {
   }
 
   return (
-    <div className="retro-window-outset max-w-2xl mx-auto rounded-lg border-2 border-[var(--color-brand-cyber-purple)] flex flex-col shadow-[0_0_25px_rgba(168,85,247,0.25)] hover:shadow-[0_0_35px_rgba(168,85,247,0.4)] transition-shadow duration-300 text-black select-none">
+    <div className="stained-glass max-w-2xl mx-auto rounded-2xl border border-black/10 dark:border-white/10 flex flex-col shadow-2xl hover:shadow-[0_0_35px_rgba(225,29,72,0.15)] transition-shadow duration-500 text-foreground select-none overflow-hidden">
       
       {/* Title Bar */}
-      <div className="px-3 py-1.5 flex justify-between items-center text-white font-mono bg-gradient-to-r from-[var(--color-brand-terracotta)] via-[#db2777] to-[var(--color-brand-cyber-purple)]">
+      <div className="px-4 py-2 flex justify-between items-center text-white bg-gradient-to-r from-rose-500 to-amber-500 shadow-sm">
         <div className="flex items-center gap-2">
           <FileText className="w-4 h-4 text-white animate-pulse" />
-          <span className="text-xs font-bold uppercase tracking-wider text-white">APPLY.EXE // Strategy Assembly Request</span>
+          <span className="text-xs font-black uppercase tracking-widest text-white">APPLY.EXE // Strategy Assembly Request</span>
         </div>
         
-        <div className="flex items-center gap-1">
-          <button className="w-5 h-5 retro-button flex items-center justify-center text-black font-bold p-0">
+        <div className="flex items-center gap-1.5">
+          <button className="w-5 h-5 rounded-lg bg-white/20 hover:bg-white/30 flex items-center justify-center text-white border border-white/10 transition-colors cursor-pointer">
             <Minus className="w-3 h-3 stroke-[3]" />
           </button>
-          <button className="w-5 h-5 retro-button flex items-center justify-center text-black font-bold p-0 cursor-not-allowed" disabled>
+          <button className="w-5 h-5 rounded-lg bg-white/10 flex items-center justify-center text-white/40 border border-white/5 cursor-not-allowed" disabled>
             <Square className="w-2.5 h-2.5 stroke-[3]" />
           </button>
-          <Link href="/" className="w-5 h-5 retro-button flex items-center justify-center text-black font-bold p-0 hover:bg-red-600 hover:text-white">
-            <X className="w-3.5 h-3.5 stroke-[3]" />
+          <Link href="/" className="w-5 h-5 rounded-lg bg-white/20 hover:bg-rose-600 flex items-center justify-center text-white border border-white/10 transition-colors">
+            <X className="w-3 h-3 stroke-[3]" />
           </Link>
         </div>
       </div>
 
       {/* Options Menu Bar */}
-      <div className="bg-[#c0c0c0] px-3 py-1 border-b border-[#808080] flex justify-between items-center text-[10px] font-mono text-black font-medium border-t border-white select-none">
+      <div className="bg-white/40 dark:bg-zinc-950/40 backdrop-blur-md px-4 py-2 border-b border-black/5 dark:border-white/5 flex justify-between items-center text-[10px] font-sans text-black dark:text-zinc-300 font-black uppercase tracking-wider select-none">
         <div className="flex gap-4">
-          <span className="hover:underline cursor-pointer">File</span>
-          <span className="hover:underline cursor-pointer">Security</span>
-          <span className="hover:underline cursor-pointer">Help</span>
+          <span className="hover:text-rose-500 cursor-pointer">File</span>
+          <span className="hover:text-rose-500 cursor-pointer">Security</span>
+          <span className="hover:text-rose-500 cursor-pointer">Help</span>
         </div>
         {/* Cyber status pill */}
-        <div className="flex items-center gap-1 bg-black/90 border border-emerald-400 text-emerald-400 px-1.5 py-0.5 rounded text-[8px] font-bold shadow-[0_0_8px_rgba(52,211,153,0.15)]">
+        <div className="flex items-center gap-1.5 bg-black/80 dark:bg-black/90 border border-emerald-500/30 text-emerald-400 px-2 py-0.5 rounded-lg text-[8px] font-bold shadow-sm">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           <span>CYBER_SHIELD: ACTIVE</span>
         </div>
       </div>
 
       {/* Form Workspace */}
-      <form onSubmit={handleSubmit(onSubmit)} className="bg-[#dfdfdf] p-6 flex flex-col gap-6 border-t border-white">
+      <form onSubmit={handleSubmit(onSubmit)} className="bg-white/50 dark:bg-zinc-950/50 backdrop-blur-md p-6 flex flex-col gap-6 border-t border-black/5 dark:border-white/5">
         
-        {/* Step Progress block styled like a Windows 95 installer */}
+        {/* Step Progress block styled like a glass installer */}
         <div className="space-y-2">
-          <div className="flex justify-between items-center text-[10px] font-mono text-gray-700 font-bold uppercase">
+          <div className="flex justify-between items-center text-[9px] font-sans text-zinc-500 dark:text-zinc-400 font-black uppercase tracking-wider">
             <span>Assembly Wizard Progress:</span>
             <span>Step {step} of 3</span>
           </div>
 
-          <div className="flex gap-1.5 border border-gray-400 p-1 bg-white rounded shadow-inner">
+          <div className="flex gap-1.5 border border-black/10 dark:border-white/10 p-1 bg-white/40 dark:bg-zinc-900/40 rounded-xl shadow-inner">
             {Array.from({ length: 3 }).map((_, idx) => {
               const active = step >= idx + 1;
               return (
                 <div 
                   key={idx} 
-                  className={`h-4.5 flex-grow transition-colors ${active ? "bg-[#000080]" : "bg-gray-200"}`} 
+                  className={cn(
+                    "h-3 flex-grow rounded-md transition-colors duration-300",
+                    active ? "bg-rose-500 shadow-sm" : "bg-zinc-200 dark:bg-zinc-800"
+                  )}
                 />
               );
             })}
@@ -211,41 +215,41 @@ export function ApplicationForm() {
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 10 }}
-                className="space-y-4 font-mono text-xs text-black"
+                className="space-y-4 text-xs text-black dark:text-white"
               >
-                <span className="text-[10px] font-mono text-gray-500 uppercase font-black block border-b border-gray-300 pb-1 mb-2">
+                <span className="text-[9px] font-sans text-zinc-500 dark:text-zinc-400 uppercase font-black block border-b border-black/5 dark:border-white/5 pb-1 mb-2 tracking-wider">
                   Verify Diplomatic Profile
                 </span>
 
                 <div className="space-y-1">
-                  <label className="block font-bold text-gray-700 uppercase">Full Name, Your Excellency:</label>
+                  <label className="block font-black text-zinc-600 dark:text-zinc-400 uppercase tracking-wider text-[10px]">Full Name, Your Excellency:</label>
                   <input 
                     {...register("fullName")}
-                    className="w-full retro-window-inset bg-white border border-gray-400 p-2.5 rounded text-black outline-none focus:border-[var(--color-brand-electric-blue)] focus:ring-1 focus:ring-[var(--color-brand-electric-blue)] focus:shadow-[0_0_10px_rgba(37,99,235,0.2)] transition-all font-mono"
+                    className="w-full bg-white/60 dark:bg-zinc-900/60 border border-black/10 dark:border-white/10 p-3 rounded-xl text-black dark:text-white outline-none focus:border-rose-500 transition-colors font-sans"
                     placeholder="e.g. Eleanor Sterling"
                   />
-                  {errors.fullName && <p className="text-red-700 text-[10px] mt-1 font-bold">⚠️ {errors.fullName.message}</p>}
+                  {errors.fullName && <p className="text-rose-500 text-[10px] mt-1 font-bold">⚠️ {errors.fullName.message}</p>}
                 </div>
                 
                 <div className="space-y-1">
-                  <label className="block font-bold text-gray-700 uppercase">Electronic Mail address:</label>
+                  <label className="block font-black text-zinc-600 dark:text-zinc-400 uppercase tracking-wider text-[10px]">Electronic Mail address:</label>
                   <input 
                     {...register("email")}
                     type="email"
-                    className="w-full retro-window-inset bg-white border border-gray-400 p-2.5 rounded text-black outline-none focus:border-[var(--color-brand-electric-blue)] focus:ring-1 focus:ring-[var(--color-brand-electric-blue)] focus:shadow-[0_0_10px_rgba(37,99,235,0.2)] transition-all font-mono"
+                    className="w-full bg-white/60 dark:bg-zinc-900/60 border border-black/10 dark:border-white/10 p-3 rounded-xl text-black dark:text-white outline-none focus:border-rose-500 transition-colors font-sans"
                     placeholder="eleanor@court.edu"
                   />
-                  {errors.email && <p className="text-red-700 text-[10px] mt-1 font-bold">⚠️ {errors.email.message}</p>}
+                  {errors.email && <p className="text-rose-500 text-[10px] mt-1 font-bold">⚠️ {errors.email.message}</p>}
                 </div>
 
                 <div className="space-y-1">
-                  <label className="block font-bold text-gray-700 uppercase">Institution / University of Study:</label>
+                  <label className="block font-black text-zinc-600 dark:text-zinc-400 uppercase tracking-wider text-[10px]">Institution / University of Study:</label>
                   <input 
                     {...register("university")}
-                    className="w-full retro-window-inset bg-white border border-gray-400 p-2.5 rounded text-black outline-none focus:border-[var(--color-brand-electric-blue)] focus:ring-1 focus:ring-[var(--color-brand-electric-blue)] focus:shadow-[0_0_10px_rgba(37,99,235,0.2)] transition-all font-mono"
+                    className="w-full bg-white/60 dark:bg-zinc-900/60 border border-black/10 dark:border-white/10 p-3 rounded-xl text-black dark:text-white outline-none focus:border-rose-500 transition-colors font-sans"
                     placeholder="e.g. Oxford University"
                   />
-                  {errors.university && <p className="text-red-700 text-[10px] mt-1 font-bold">⚠️ {errors.university.message}</p>}
+                  {errors.university && <p className="text-rose-500 text-[10px] mt-1 font-bold">⚠️ {errors.university.message}</p>}
                 </div>
               </motion.div>
             )}
@@ -257,13 +261,13 @@ export function ApplicationForm() {
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 10 }}
-                className="space-y-4 font-mono text-xs text-black"
+                className="space-y-4 text-xs text-black dark:text-white"
               >
-                <span className="text-[10px] font-mono text-gray-500 uppercase font-black block border-b border-gray-300 pb-1 mb-2">
+                <span className="text-[9px] font-sans text-zinc-500 dark:text-zinc-400 uppercase font-black block border-b border-black/5 dark:border-white/5 pb-1 mb-2 tracking-wider">
                   Select Target Chambers
                 </span>
                 
-                <label className="block font-bold text-gray-700 uppercase text-center mb-2">
+                <label className="block font-black text-zinc-600 dark:text-zinc-400 uppercase tracking-wider text-center mb-2">
                   Which chambers command your strategic interest?
                 </label>
                 
@@ -275,11 +279,12 @@ export function ApplicationForm() {
                         type="button"
                         key={evt}
                         onClick={() => toggleInterest(evt)}
-                        className={`retro-button px-5 py-2 text-xs font-mono font-bold uppercase border border-black cursor-pointer flex items-center gap-1.5 transition-colors ${
+                        className={cn(
+                          "px-5 py-2 text-xs font-black uppercase tracking-widest border rounded-xl cursor-pointer flex items-center gap-1.5 transition-all shadow-sm",
                           isSelected 
-                            ? 'bg-[var(--color-brand-electric-blue)] text-white shadow-inner translate-x-[1px] translate-y-[1px]'
-                            : 'bg-transparent text-black hover:bg-gray-100'
-                        }`}
+                            ? 'bg-rose-500 text-white border-transparent scale-95 shadow-md'
+                            : 'bg-white/40 dark:bg-zinc-900/40 border-black/10 dark:border-white/10 text-black dark:text-zinc-300 hover:bg-white/60 dark:hover:bg-zinc-800/60'
+                        )}
                       >
                         <span className="text-[10px]">{isSelected ? "☑" : "☐"}</span>
                         <span>{evt}</span>
@@ -287,7 +292,7 @@ export function ApplicationForm() {
                     );
                   })}
                 </div>
-                {errors.interests && <p className="text-red-700 text-[10px] mt-2 text-center font-bold">⚠️ {errors.interests.message}</p>}
+                {errors.interests && <p className="text-rose-500 text-[10px] mt-2 text-center font-bold">⚠️ {errors.interests.message}</p>}
               </motion.div>
             )}
 
@@ -298,23 +303,23 @@ export function ApplicationForm() {
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 10 }}
-                className="space-y-4 font-mono text-xs text-black"
+                className="space-y-4 text-xs text-black dark:text-white"
               >
-                <span className="text-[10px] font-mono text-gray-500 uppercase font-black block border-b border-gray-300 pb-1 mb-2">
+                <span className="text-[9px] font-sans text-zinc-500 dark:text-zinc-400 uppercase font-black block border-b border-black/5 dark:border-white/5 pb-1 mb-2 tracking-wider">
                   Draft Strategy Statement
                 </span>
 
                 <div className="space-y-1">
-                  <label className="block font-bold text-gray-700 uppercase">
+                  <label className="block font-black text-zinc-600 dark:text-zinc-400 uppercase tracking-wider text-[10px] mb-1">
                     Why should the High Council grant you a seat? (Min 50 chars):
                   </label>
                   <textarea 
                     {...register("essay")}
                     rows={6}
-                    className="w-full retro-window-inset bg-white border border-gray-400 p-3 rounded text-black outline-none focus:border-[var(--color-brand-electric-blue)] focus:ring-1 focus:ring-[var(--color-brand-electric-blue)] focus:shadow-[0_0_10px_rgba(37,99,235,0.2)] transition-all font-mono resize-none"
+                    className="w-full bg-white/60 dark:bg-zinc-900/60 border border-black/10 dark:border-white/10 p-3 rounded-xl text-black dark:text-white outline-none focus:border-rose-500 transition-colors font-sans resize-none"
                     placeholder="Draft your assembly decree statement..."
                   />
-                  {errors.essay && <p className="text-red-700 text-[10px] mt-1 font-bold">⚠️ {errors.essay.message}</p>}
+                  {errors.essay && <p className="text-rose-500 text-[10px] mt-1 font-bold">⚠️ {errors.essay.message}</p>}
                 </div>
               </motion.div>
             )}
@@ -322,12 +327,12 @@ export function ApplicationForm() {
         </div>
 
         {/* Wizard Controls Footer */}
-        <div className="border-t border-[#808080] pt-4 flex justify-between select-none">
+        <div className="border-t border-black/5 dark:border-white/5 pt-4 flex justify-between select-none">
           {step > 1 ? (
             <button 
               type="button" 
               onClick={prevStep}
-              className="retro-button px-5 py-2 text-xs font-mono font-bold uppercase text-black border border-black hover:bg-[#c0c0c0] cursor-pointer flex items-center gap-1.5"
+              className="bg-white/40 dark:bg-zinc-900/40 border border-black/10 dark:border-white/10 text-black dark:text-zinc-300 px-5 py-2 rounded-xl text-xs font-black uppercase tracking-widest shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center gap-1.5"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Back</span>
@@ -338,7 +343,7 @@ export function ApplicationForm() {
             <button 
               type="button" 
               onClick={nextStep}
-              className="retro-button px-6 py-2 text-xs font-mono font-bold uppercase text-black border border-black hover:bg-[#c0c0c0] cursor-pointer flex items-center gap-1.5 ml-auto"
+              className="bg-rose-500 hover:bg-rose-600 text-white px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center gap-1.5 ml-auto"
             >
               <span>Next</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -347,7 +352,7 @@ export function ApplicationForm() {
             <button 
               type="submit"
               disabled={!isValid || isSubmitting}
-              className="retro-button px-6 py-2 text-xs font-mono font-bold uppercase text-black border border-black hover:bg-emerald-600 hover:text-white cursor-pointer disabled:opacity-50 disabled:cursor-wait ml-auto"
+              className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest shadow-sm hover:scale-105 active:scale-95 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-wait ml-auto"
             >
               {isSubmitting ? "Submitting..." : "Submit Decree"}
             </button>
@@ -357,7 +362,7 @@ export function ApplicationForm() {
       </form>
 
       {/* Window Footer Status bar */}
-      <div className="bg-[#c0c0c0] px-3 py-1 border-t border-[#808080] text-[9px] font-mono text-black flex justify-between border-b border-white select-none">
+      <div className="bg-zinc-300 dark:bg-zinc-900 px-4 py-1.5 text-[9px] font-mono text-zinc-600 dark:text-zinc-400 flex justify-between border-t border-black/5 dark:border-white/5 select-none shadow-sm">
         <span>Application Wizard Connected</span>
         <span>Clock (IST): {currentTime || "12:00:00 PM"}</span>
       </div>
