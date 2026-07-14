@@ -168,9 +168,11 @@ function GlassAssembly() {
 }
 
 export function StainedGlass3D() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(true); // Default to mobile first during SSR/hydration
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const checkMobile = () => {
       // Treat touch devices and screen widths below 768px as mobile
       setIsMobile(window.innerWidth < 768 || "ontouchstart" in window || navigator.maxTouchPoints > 0);
@@ -180,46 +182,47 @@ export function StainedGlass3D() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // 1. Mobile specific rendering: High-performance animated SVG stained glass mosaic
-  if (isMobile) {
+  // 1. Mobile specific rendering: High-performance, clean, hardware-accelerated animated SVG mosaic
+  // Render this immediately on initial render/SSR/hydration to prevent Three.js flashes
+  if (!mounted || isMobile) {
     return (
-      <div className="absolute inset-0 w-full h-full overflow-hidden bg-transparent z-0 pointer-events-none select-none">
-        <svg className="w-full h-full opacity-30 dark:opacity-15" viewBox="0 0 100 100" preserveAspectRatio="none">
-          {/* Pulsating colorful glass polygons */}
-          <polygon points="0,0 30,0 20,30 0,20" className="animate-[pulse_5s_infinite_ease-in-out] fill-rose-500/25" />
-          <polygon points="30,0 70,0 60,35 20,30" className="animate-[pulse_6s_infinite_ease-in-out_1s] fill-amber-500/25" />
-          <polygon points="70,0 100,0 100,25 60,35" className="animate-[pulse_7s_infinite_ease-in-out_2s] fill-blue-500/25" />
+      <div className="absolute inset-0 w-full h-full overflow-hidden bg-transparent z-0 pointer-events-none select-none transition-opacity duration-700 ease-out">
+        <svg className="w-full h-full opacity-20 dark:opacity-10" viewBox="0 0 100 100" preserveAspectRatio="none">
+          {/* Custom color shifting glass polygon panels */}
+          <polygon points="0,0 30,0 20,30 0,20" className="mobile-glass-pane fill-rose-500/25" style={{ animationDuration: "8s" }} />
+          <polygon points="30,0 70,0 60,35 20,30" className="mobile-glass-pane fill-amber-500/25" style={{ animationDuration: "10s", animationDelay: "1s" }} />
+          <polygon points="70,0 100,0 100,25 60,35" className="mobile-glass-pane fill-blue-500/25" style={{ animationDuration: "12s", animationDelay: "2s" }} />
           
-          <polygon points="0,20 20,30 15,60 0,55" className="animate-[pulse_5.5s_infinite_ease-in-out_0.5s] fill-purple-500/25" />
-          <polygon points="20,30 60,35 50,70 15,60" className="animate-[pulse_6.5s_infinite_ease-in-out_1.5s] fill-emerald-500/25" />
-          <polygon points="60,35 100,25 100,60 50,70" className="animate-[pulse_5s_infinite_ease-in-out_2.5s] fill-rose-500/25" />
+          <polygon points="0,20 20,30 15,60 0,55" className="mobile-glass-pane fill-purple-500/25" style={{ animationDuration: "9s", animationDelay: "0.5s" }} />
+          <polygon points="20,30 60,35 50,70 15,60" className="mobile-glass-pane fill-emerald-500/25" style={{ animationDuration: "11s", animationDelay: "1.5s" }} />
+          <polygon points="60,35 100,25 100,60 50,70" className="mobile-glass-pane fill-rose-500/25" style={{ animationDuration: "8s", animationDelay: "2.5s" }} />
           
-          <polygon points="0,55 15,60 10,100 0,100" className="animate-[pulse_7s_infinite_ease-in-out_1s] fill-amber-500/25" />
-          <polygon points="15,60 50,70 45,100 10,100" className="animate-[pulse_5.5s_infinite_ease-in-out_3s] fill-blue-500/25" />
-          <polygon points="50,70 100,60 100,100 45,100" className="animate-[pulse_6s_infinite_ease-in-out_2s] fill-purple-500/25" />
+          <polygon points="0,55 15,60 10,100 0,100" className="mobile-glass-pane fill-amber-500/25" style={{ animationDuration: "11s", animationDelay: "1s" }} />
+          <polygon points="15,60 50,70 45,100 10,100" className="mobile-glass-pane fill-blue-500/25" style={{ animationDuration: "9s", animationDelay: "3s" }} />
+          <polygon points="50,70 100,60 100,100 45,100" className="mobile-glass-pane fill-purple-500/25" style={{ animationDuration: "10s", animationDelay: "2s" }} />
           
           {/* Mosaic leaded framing grid overlay */}
-          <line x1="30" y1="0" x2="20" y2="30" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
-          <line x1="70" y1="0" x2="60" y2="35" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
-          <line x1="20" y1="30" x2="0" y2="20" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
-          <line x1="60" y1="35" x2="20" y2="30" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
-          <line x1="100" y1="25" x2="60" y2="35" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
-          <line x1="15" y1="60" x2="0" y2="55" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
-          <line x1="50" y1="70" x2="15" y2="60" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
-          <line x1="100" y1="60" x2="50" y2="70" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
-          <line x1="15" y1="60" x2="10" y2="100" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
-          <line x1="50" y1="70" x2="45" y2="100" stroke="currentColor" className="text-black/30 dark:text-white/30" strokeWidth="0.4" />
+          <line x1="30" y1="0" x2="20" y2="30" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
+          <line x1="70" y1="0" x2="60" y2="35" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
+          <line x1="20" y1="30" x2="0" y2="20" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
+          <line x1="60" y1="35" x2="20" y2="30" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
+          <line x1="100" y1="25" x2="60" y2="35" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
+          <line x1="15" y1="60" x2="0" y2="55" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
+          <line x1="50" y1="70" x2="15" y2="60" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
+          <line x1="100" y1="60" x2="50" y2="70" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
+          <line x1="15" y1="60" x2="10" y2="100" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
+          <line x1="50" y1="70" x2="45" y2="100" stroke="currentColor" className="text-black/35 dark:text-white/35" strokeWidth="0.4" />
         </svg>
 
         {/* Soft rotating colored light overlays */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-rose-500/5 via-transparent to-blue-500/5 mix-blend-overlay animate-[spin_30s_infinite_linear] pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-rose-500/5 via-transparent to-blue-500/5 mix-blend-overlay animate-[spin_40s_infinite_linear] pointer-events-none" />
       </div>
     );
   }
 
   // 2. Desktop/Laptop specific rendering: Interactive 3D WebGL Canvas
   return (
-    <div className="w-full h-full absolute inset-0 z-0 pointer-events-none opacity-90 dark:opacity-85">
+    <div className="w-full h-full absolute inset-0 z-0 pointer-events-none opacity-90 dark:opacity-85 transition-opacity duration-700 ease-in">
       <Canvas
         camera={{ position: [0, 0, 7.5], fov: 45 }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}

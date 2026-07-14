@@ -188,3 +188,22 @@ h4, h5, h6 {
 .text-glow-emerald { text-shadow: 0 0 10px rgba(5, 150, 105, 0.3); }
 .text-glow-amethyst { text-shadow: 0 0 10px rgba(124, 58, 237, 0.3); }
 .text-glow-amber { text-shadow: 0 0 10px rgba(217, 119, 6, 0.3); }
+
+/* Ultra-smooth hardware-accelerated mobile glass animation */
+@keyframes mobile-glass-glow {
+  0%, 100% {
+    opacity: 0.12;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.28;
+    transform: scale(1.02);
+  }
+}
+
+.mobile-glass-pane {
+  transform-origin: center;
+  will-change: opacity, transform;
+  animation: mobile-glass-glow 9s infinite ease-in-out;
+}
+
