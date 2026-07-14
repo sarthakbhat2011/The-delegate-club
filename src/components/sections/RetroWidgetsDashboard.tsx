@@ -482,11 +482,11 @@ export function RetroWidgetsDashboard() {
 
                               <div className="grid grid-cols-2 gap-3">
                                 <div className="space-y-1">
-                                  <label className="text-[10px] font-mono font-bold uppercase text-gray-700 block">Delegation:</label>
+                                  <label className="text-[10px] font-cinzel font-bold uppercase text-gray-700 block">Delegation:</label>
                                   <select 
                                     value={munCountry} 
                                     onChange={(e) => setMunCountry(e.target.value)}
-                                    className="w-full retro-window-inset px-2.5 py-1.5 text-xs font-mono text-black outline-none border border-black"
+                                    className="w-full retro-window-inset px-2.5 py-1.5 text-xs font-cinzel font-bold text-black outline-none border border-black"
                                   >
                                     <option>India</option>
                                     <option>United States</option>
@@ -496,11 +496,11 @@ export function RetroWidgetsDashboard() {
                                   </select>
                                 </div>
                                 <div className="space-y-1">
-                                  <label className="text-[10px] font-mono font-bold uppercase text-gray-700 block">Agenda Item:</label>
+                                  <label className="text-[10px] font-cinzel font-bold uppercase text-gray-700 block">Agenda Item:</label>
                                   <select 
                                     value={munAgenda} 
                                     onChange={(e) => setMunAgenda(e.target.value)}
-                                    className="w-full retro-window-inset px-2.5 py-1.5 text-xs font-mono text-black outline-none border border-black"
+                                    className="w-full retro-window-inset px-2.5 py-1.5 text-xs font-cinzel font-bold text-black outline-none border border-black"
                                   >
                                     <option>Cybersecurity</option>
                                     <option>Climate Action</option>
@@ -509,13 +509,13 @@ export function RetroWidgetsDashboard() {
                                   </select>
                                 </div>
                                 <div className="col-span-2 space-y-1">
-                                  <label className="text-[10px] font-mono font-bold uppercase text-gray-700 block">Stance Profile:</label>
+                                  <label className="text-[10px] font-cinzel font-bold uppercase text-gray-700 block">Stance Profile:</label>
                                   <div className="flex gap-2">
                                     {["Proactive Cooperation", "Bilateral Assertiveness", "Absolute Sovereign Veto"].map((stance) => (
                                       <button
                                         key={stance}
                                         onClick={() => setMunStance(stance)}
-                                        className={`flex-grow px-2 py-1 border text-[9px] font-mono font-bold transition-all ${munStance === stance ? "bg-[var(--color-brand-saffron)] text-black border-black shadow-[inset_1.5px_1.5px_0px_#000]" : "bg-[#c0c0c0] border-gray-400 retro-button"}`}
+                                        className={`flex-grow px-2 py-1 border text-[9px] font-cinzel font-bold transition-all ${munStance === stance ? "bg-[var(--color-brand-saffron)] text-black border-black shadow-[inset_1.5px_1.5px_0px_#000]" : "bg-[#c0c0c0] border-gray-400 retro-button"}`}
                                       >
                                         {stance.split(" ")[0]} Stance
                                       </button>
@@ -628,15 +628,15 @@ export function RetroWidgetsDashboard() {
                                   <div className="retro-window-inset bg-black p-2 flex items-center gap-3 rounded-lg border border-black select-none">
                                     <button 
                                       onClick={() => setIsPlayingSufi(!isPlayingSufi)}
-                                      className="w-8 h-8 rounded-full bg-[var(--color-brand-terracotta)] flex items-center justify-center text-white shadow-md hover:scale-105 active:scale-95 transition-transform"
+                                      className="w-8 h-8 rounded-full bg-[var(--color-brand-terracotta)] flex items-center justify-center text-white shadow-md hover:scale-105 active:scale-95 transition-transform shrink-0"
                                     >
                                       {isPlayingSufi ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current translate-x-0.5" />}
                                     </button>
                                     <div className="flex-grow min-w-0">
-                                      <span className="block font-sans text-xs text-white truncate font-bold uppercase">
+                                      <span className="block font-calligraphy text-2xl text-white truncate leading-none pt-1">
                                         {sufiTracks[activeTrackIndex].title}
                                       </span>
-                                      <span className="block font-mono text-[9px] text-[#C15C3D] font-bold">
+                                      <span className="block font-serif text-[10px] text-[#C15C3D] font-bold">
                                         Artist: {sufiTracks[activeTrackIndex].artist}
                                       </span>
                                     </div>
@@ -676,7 +676,7 @@ export function RetroWidgetsDashboard() {
                               </div>
 
                               {/* translation box */}
-                              <div className="p-3 bg-[#fff8f5] rounded-lg border border-gray-300 font-serif text-[11px] text-gray-700 italic leading-relaxed">
+                              <div className="p-3 bg-[#fff8f5] rounded-lg border border-gray-300 font-calligraphy text-xl text-zinc-900 leading-normal">
                                 <span className="block font-mono text-[9px] font-bold uppercase text-[#C15C3D] not-italic mb-1">
                                   Sufi Lyrics English Translation:
                                 </span>
@@ -713,11 +713,11 @@ export function RetroWidgetsDashboard() {
 
                               <div className="space-y-3">
                                 <div className="space-y-1">
-                                  <label className="text-[10px] font-mono font-bold uppercase text-gray-700 block">Select Auction Lot:</label>
+                                  <label className="text-[10px] font-serif font-bold uppercase text-gray-700 block">Select Auction Lot:</label>
                                   <select 
                                     value={selectedAuctionIdx} 
                                     onChange={(e) => setSelectedAuctionIdx(Number(e.target.value))}
-                                    className="w-full retro-window-inset px-2.5 py-1.5 text-xs font-mono text-black outline-none border border-black"
+                                    className="w-full retro-window-inset px-2.5 py-1.5 text-xs font-serif text-black outline-none border border-black"
                                   >
                                     {auctionItems.map((item, idx) => (
                                       <option key={idx} value={idx}>{item.name}</option>
@@ -727,13 +727,13 @@ export function RetroWidgetsDashboard() {
 
                                 <div className="bg-[#fff8f5] rounded-xl p-3 border border-gray-300 grid grid-cols-2 gap-4">
                                   <div>
-                                    <span className="text-[9px] font-mono text-gray-500 block uppercase font-bold">Opening Bid:</span>
+                                    <span className="text-[9px] font-serif text-gray-500 block uppercase font-bold">Opening Bid:</span>
                                     <span className="font-serif font-black text-sm text-black">
                                       ${auctionItems[selectedAuctionIdx].minBid}
                                     </span>
                                   </div>
                                   <div>
-                                    <span className="text-[9px] font-mono text-gray-500 block uppercase font-bold">Current Bid:</span>
+                                    <span className="text-[9px] font-serif text-gray-500 block uppercase font-bold">Current Bid:</span>
                                     <span className="font-serif font-black text-sm text-[var(--color-brand-marigold)]">
                                       ${auctionItems[selectedAuctionIdx].curBid}
                                     </span>
@@ -741,9 +741,9 @@ export function RetroWidgetsDashboard() {
                                 </div>
 
                                 <div className="space-y-1">
-                                  <div className="flex justify-between items-center text-[10px] font-mono font-bold text-gray-700 uppercase">
+                                  <div className="flex justify-between items-center text-[10px] font-serif font-bold text-gray-700 uppercase">
                                     <span>Set Your Bid Amount:</span>
-                                    <span className="text-[var(--color-brand-marigold)] font-black text-xs">${bidValue}</span>
+                                    <span className="text-[var(--color-brand-marigold)] font-serif font-black text-sm">${bidValue}</span>
                                   </div>
                                   <input
                                     type="range"
@@ -802,9 +802,9 @@ export function RetroWidgetsDashboard() {
                                 </div>
 
                                 <div className="space-y-1 col-span-3">
-                                  <div className="flex justify-between items-center text-[10px] font-mono font-bold text-gray-700 uppercase">
+                                  <div className="flex justify-between items-center text-[10px] font-outfit font-black text-gray-700 uppercase">
                                     <span>Valuation Request ($M):</span>
-                                    <span className="text-black font-black text-xs">${sharkValuation} Million</span>
+                                    <span className="text-black font-outfit font-black text-xs">${sharkValuation} Million</span>
                                   </div>
                                   <input
                                     type="range"
@@ -818,9 +818,9 @@ export function RetroWidgetsDashboard() {
                                 </div>
 
                                 <div className="space-y-1 col-span-3">
-                                  <div className="flex justify-between items-center text-[10px] font-mono font-bold text-gray-700 uppercase">
+                                  <div className="flex justify-between items-center text-[10px] font-outfit font-black text-gray-700 uppercase">
                                     <span>Equity Offered (%):</span>
-                                    <span className="text-black font-black text-xs">{sharkEquity}% Equity</span>
+                                    <span className="text-black font-outfit font-black text-xs">{sharkEquity}% Equity</span>
                                   </div>
                                   <input
                                     type="range"
@@ -836,12 +836,12 @@ export function RetroWidgetsDashboard() {
 
                               {/* Shark Speech Bubble */}
                               {sharkReaction && (
-                                <div className="p-3 bg-white rounded-xl border-2 border-black relative font-mono text-[10px] text-black">
+                                <div className="p-3 bg-white rounded-xl border-2 border-black relative font-outfit text-xs text-black">
                                   <div className="absolute top-[-8px] left-6 w-3 h-3 bg-white border-t-2 border-l-2 border-black rotate-45" />
-                                  <strong className="block text-[var(--color-brand-electric-blue)] uppercase mb-1">
+                                  <strong className="block text-[var(--color-brand-electric-blue)] uppercase mb-1 font-black">
                                     💬 {sharkReaction.name}:
                                   </strong>
-                                  <p className="italic">"{sharkReaction.quote}"</p>
+                                  <p className="italic font-bold">"{sharkReaction.quote}"</p>
                                 </div>
                               )}
 

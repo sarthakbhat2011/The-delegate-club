@@ -1,10 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Outfit:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Outfit:wght@400;700;900&family=Plus+Jakarta+Sans:wght@400;600;800&family=Fira+Code:wght@400;700&family=Cinzel:wght@600;800&family=Alex+Brush&display=swap");
 @import "tailwindcss";
 
 @theme {
   /* Fonts */
   --font-sans: "Plus Jakarta Sans", sans-serif;
   --font-serif: "Cormorant Garamond", serif;
+  --font-mono: "Fira Code", monospace;
+  --font-cinzel: "Cinzel", serif;
+  --font-calligraphy: "Alex Brush", cursive;
+  --font-outfit: "Outfit", sans-serif;
 
   /* Theme Mapping */
   --color-background: var(--background);
@@ -26,16 +30,25 @@
   --color-brand-neon-orange: #f97316;
   --color-brand-hot-pink: #ec4899;
   --color-brand-slate: var(--brand-slate);
+  
+  --color-brand-silver: var(--brand-silver);
+  --color-brand-silver-dark: var(--brand-silver-dark);
+  --color-brand-silver-light: var(--brand-silver-light);
 }
 
 :root {
   --background: #fbf9f4; /* Warm marble cream background */
-  --foreground: #09090b;
-  --card-bg: rgba(255, 255, 255, 0.45);
-  --card-border: rgba(9, 9, 11, 0.12);
-  --glass-shadow: rgba(9, 9, 11, 0.05);
-  --brand-slate: #4b5563;
-  --lead-line: rgba(9, 9, 11, 0.8);
+  --foreground: #09090b; /* Solid black text */
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(9, 9, 11, 0.2);
+  --glass-shadow: rgba(9, 9, 11, 0.08);
+  --brand-slate: #374151; /* Darker slate for readability */
+  --lead-line: rgba(9, 9, 11, 0.85);
+  
+  /* Dynamic High-Contrast variables for Light Mode */
+  --brand-silver: #4b5563; /* High contrast dark gray */
+  --brand-silver-dark: #111827; /* Near black text */
+  --brand-silver-light: #f3f4f6; /* Soft light gray for window tabs */
 }
 
 html.dark {
@@ -46,6 +59,11 @@ html.dark {
   --glass-shadow: rgba(0, 0, 0, 0.6);
   --brand-slate: #9ca3af;
   --lead-line: rgba(255, 255, 255, 0.65);
+  
+  /* Standard values for Dark Mode */
+  --brand-silver: #C0C0C0;
+  --brand-silver-dark: #808080;
+  --brand-silver-light: #dfdfdf;
 }
 
 body {
@@ -58,6 +76,23 @@ body {
   overflow-x: hidden;
   line-height: 1.6;
   transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Light mode text readability support class overrides */
+@layer utilities {
+  /* Enforce clear, solid text in light mode when components use gray classes */
+  :root .text-gray-400, :root .text-zinc-400 {
+    color: #4b5563 !important;
+  }
+  :root .text-gray-500, :root .text-zinc-500 {
+    color: #374151 !important;
+  }
+  :root .text-gray-600, :root .text-zinc-600, :root .text-gray-700, :root .text-zinc-700 {
+    color: #1f2937 !important;
+  }
+  :root .text-gray-800, :root .text-zinc-800 {
+    color: #111827 !important;
+  }
 }
 
 /* Stained Glass Light Rays projection */
